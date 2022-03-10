@@ -68,6 +68,7 @@ public class balls : MonoBehaviour
     private Color generateRandomColor()
     {
         Color[] colors = {Color.blue, Color.cyan, Color.green, Color.magenta, Color.red, Color.yellow,};
+
         int random = Random.Range(0,5);
         
      //   Debug.Log(colors[random].ToString());

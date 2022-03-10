@@ -31,5 +31,7 @@ public class babyCubis : MonoBehaviour
                 cubi1.transform.localScale = scale;
             }
         }
+        
+        
     }
 }
