@@ -34,11 +34,12 @@ public class balls : MonoBehaviour
             float cubi = Random.Range(0.0f,1.0f);
             Debug.Log(cubi);
             Color c= generateRandomColor();
+            Vector3 currentPosition = gameObject.transform.position;
             if (cubi > 0.5f)
             {
                 
                // cubiPrefab.GetComponent<Renderer>().sharedMaterial.color = c;
-                cubiRain(c);
+                cubiRain(c, currentPosition);
             }
             ParticleSystem.MainModule settings = GetComponent<ParticleSystem>().main;
             settings.startColor = new ParticleSystem.MinMaxGradient(c);
@@ -49,17 +50,17 @@ public class balls : MonoBehaviour
         
     }
 
-    private void cubiRain(Color c)
+    private void cubiRain(Color c, Vector3 currentPosition)
     {
-        GameObject cubi1 = Instantiate(cubiPrefab, new Vector3(0, 3, 0), Quaternion.identity);
+        GameObject cubi1 = Instantiate(cubiPrefab, new Vector3(currentPosition.x + 0, currentPosition.y + 3, currentPosition.z + 0), Quaternion.identity);
         cubi1.GetComponent<Renderer>().material.color = c;
-        GameObject cubi2 = Instantiate(cubiPrefab, new Vector3(3, 3, 0), Quaternion.identity);
+        GameObject cubi2 = Instantiate(cubiPrefab, new Vector3(currentPosition.x + 3, currentPosition.y + 3, currentPosition.z + 0), Quaternion.identity);
         cubi2.GetComponent<Renderer>().material.color = c;
-        GameObject cubi3 = Instantiate(cubiPrefab, new Vector3(-3, 3, 0), Quaternion.identity);
+        GameObject cubi3 = Instantiate(cubiPrefab, new Vector3(currentPosition.x, currentPosition.y + 3, currentPosition.z + 1), Quaternion.identity);
         cubi3.GetComponent<Renderer>().material.color = c;
-        GameObject cubi4 = Instantiate(cubiPrefab, new Vector3(0, 3, -3), Quaternion.identity);
+        GameObject cubi4 = Instantiate(cubiPrefab, new Vector3(currentPosition.x + 0, currentPosition.y + 3, currentPosition.z + 2), Quaternion.identity);
         cubi4.GetComponent<Renderer>().material.color = c;
-        GameObject cubi5 = Instantiate(cubiPrefab, new Vector3(0, 3, 3), Quaternion.identity);
+        GameObject cubi5 = Instantiate(cubiPrefab, new Vector3(currentPosition.x + 0, currentPosition .y + 3, currentPosition.z + 3), Quaternion.identity);
         cubi5.GetComponent<Renderer>().material.color = c;
 
     }
