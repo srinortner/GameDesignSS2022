@@ -5358,6 +5358,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cubiPrefab: {fileID: 3295388935075101572, guid: fe9577d6ff6a3544392bd6f4f2b68aab,
     type: 3}
+  platformYellow: {fileID: 1755767243}
+  platformRed: {fileID: 8472661}
+  platformBlue: {fileID: 1205506045}
+  platformMagenta: {fileID: 493014598}
+  platformCyan: {fileID: 497656445}
+  platformGreen: {fileID: 36867944}
 --- !u!54 &391854239
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5884,6 +5890,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cubiPrefab: {fileID: 3295388935075101572, guid: fe9577d6ff6a3544392bd6f4f2b68aab,
     type: 3}
+  platformYellow: {fileID: 1755767243}
+  platformRed: {fileID: 8472661}
+  platformBlue: {fileID: 1205506045}
+  platformMagenta: {fileID: 493014598}
+  platformCyan: {fileID: 497656445}
+  platformGreen: {fileID: 36867944}
 --- !u!199 &707344882
 ParticleSystemRenderer:
   serializedVersion: 6
@@ -10988,7 +11000,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 798498196}
   m_LocalRotation: {x: 0.18433985, y: -0, z: -0, w: 0.9828626}
-  m_LocalPosition: {x: 0, y: 13.19, z: -22.92}
+  m_LocalPosition: {x: 0, y: 14.26, z: -25.67}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -11247,6 +11259,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cubiPrefab: {fileID: 3295388935075101572, guid: fe9577d6ff6a3544392bd6f4f2b68aab,
     type: 3}
+  platformYellow: {fileID: 1755767243}
+  platformRed: {fileID: 8472661}
+  platformBlue: {fileID: 1205506045}
+  platformMagenta: {fileID: 493014598}
+  platformCyan: {fileID: 497656445}
+  platformGreen: {fileID: 36867944}
 --- !u!199 &1022911398
 ParticleSystemRenderer:
   serializedVersion: 6
@@ -16160,6 +16178,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cubiPrefab: {fileID: 3295388935075101572, guid: fe9577d6ff6a3544392bd6f4f2b68aab,
     type: 3}
+  platformYellow: {fileID: 1755767243}
+  platformRed: {fileID: 8472661}
+  platformBlue: {fileID: 1205506045}
+  platformMagenta: {fileID: 493014598}
+  platformCyan: {fileID: 497656445}
+  platformGreen: {fileID: 36867944}
 --- !u!199 &1079743171
 ParticleSystemRenderer:
   serializedVersion: 6
@@ -21715,7 +21739,7 @@ Transform:
   m_GameObject: {fileID: 1755767239}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 6.09, y: 5.28, z: -9.78}
-  m_LocalScale: {x: 2.5, y: 0.5, z: 2.5}
+  m_LocalScale: {x: 4.5, y: 0.5, z: 4.5}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 13

@@ -10,6 +10,12 @@ public class balls : MonoBehaviour
     private ParticleSystem _particleSystem;
     private Vector3 orginalPosition;
     public GameObject cubiPrefab;
+    public Transform platformYellow;
+    public Transform platformRed;
+    public Transform platformBlue;
+    public Transform platformMagenta;
+    public Transform platformCyan;
+    public Transform platformGreen;
     
     // Start is called before the first frame update
     void Start()
@@ -52,15 +58,45 @@ public class balls : MonoBehaviour
 
     private void cubiRain(Color c, Vector3 currentPosition)
     {
-        GameObject cubi1 = Instantiate(cubiPrefab, new Vector3(currentPosition.x + 0, currentPosition.y + 3, currentPosition.z + 0), Quaternion.identity);
+        Vector3 wantedPosition = new Vector3(0, 0, 0);
+        if (c.Equals(Color.blue))
+        {
+            wantedPosition = new Vector3(platformBlue.position.x, 0,
+                platformBlue.position.z);
+        } else if (c.Equals(Color.green))
+        {
+            wantedPosition = new Vector3(platformGreen.position.x, 0,
+                platformGreen.position.z);
+        } else if (c.Equals(Color.red))
+        {
+            wantedPosition = new Vector3(platformRed.position.x, 0,
+                platformRed.position.z);
+        } else if (c.Equals(Color.magenta))
+        {
+            wantedPosition = new Vector3(platformMagenta.position.x, 0,
+                platformMagenta.position.z);
+        }
+        else if (c.Equals(Color.cyan))
+        {
+            wantedPosition = new Vector3(platformCyan.position.x, 0,
+                platformCyan.position.z);
+        }
+        else
+        {
+            //Color.yellow
+            wantedPosition = new Vector3(platformYellow.position.x, 0,
+                platformYellow.position.z);
+        }
+
+        GameObject cubi1 = Instantiate(cubiPrefab, new Vector3( 0, 3, wantedPosition.z + 0), Quaternion.identity);
         cubi1.GetComponent<Renderer>().material.color = c;
-        GameObject cubi2 = Instantiate(cubiPrefab, new Vector3(currentPosition.x + 3, currentPosition.y + 3, currentPosition.z + 0), Quaternion.identity);
+        GameObject cubi2 = Instantiate(cubiPrefab, new Vector3(3, 3, wantedPosition.z + 0), Quaternion.identity);
         cubi2.GetComponent<Renderer>().material.color = c;
-        GameObject cubi3 = Instantiate(cubiPrefab, new Vector3(currentPosition.x, currentPosition.y + 3, currentPosition.z + 1), Quaternion.identity);
+        GameObject cubi3 = Instantiate(cubiPrefab, new Vector3(-3, 3, wantedPosition.z + 0), Quaternion.identity);
         cubi3.GetComponent<Renderer>().material.color = c;
-        GameObject cubi4 = Instantiate(cubiPrefab, new Vector3(currentPosition.x + 0, currentPosition.y + 3, currentPosition.z + 2), Quaternion.identity);
+        GameObject cubi4 = Instantiate(cubiPrefab, new Vector3(0, 3, wantedPosition.z - 3), Quaternion.identity);
         cubi4.GetComponent<Renderer>().material.color = c;
-        GameObject cubi5 = Instantiate(cubiPrefab, new Vector3(currentPosition.x + 0, currentPosition .y + 3, currentPosition.z + 3), Quaternion.identity);
+        GameObject cubi5 = Instantiate(cubiPrefab, new Vector3(0, 3, wantedPosition.z + 3), Quaternion.identity);
         cubi5.GetComponent<Renderer>().material.color = c;
 
     }
