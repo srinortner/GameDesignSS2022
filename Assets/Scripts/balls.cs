@@ -41,12 +41,11 @@ public class balls : MonoBehaviour
             Debug.Log(cubi);
             Color c= generateRandomColor();
             Vector3 currentPosition = gameObject.transform.position;
-            if (cubi > 0.5f)
-            {
+
                 
                // cubiPrefab.GetComponent<Renderer>().sharedMaterial.color = c;
                 cubiRain(c, currentPosition);
-            }
+
             ParticleSystem.MainModule settings = GetComponent<ParticleSystem>().main;
             settings.startColor = new ParticleSystem.MinMaxGradient(c);
             this.GetComponent<Rigidbody>().AddForce(Vector3.right,ForceMode.Impulse);
