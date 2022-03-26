@@ -15,6 +15,7 @@ public class CameraRay : MonoBehaviour
 	private Camera cam;
 	private Vector3 anchorPoint;
 	private Quaternion anchorRot;
+	private Vector3 targetPos;
 	
 	private void Awake () {
 		cam = GetComponent<Camera>();
@@ -22,31 +23,50 @@ public class CameraRay : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+	    targetPos = new Vector3();
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
 		RaycastHit hit;
-		var ray = GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
+		
+        cam = GetComponent<Camera>();
+		Vector3 mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
+		var ray = cam.ScreenPointToRay(Input.mousePosition);
 
 		if (Input.GetKey(KeyCode.D))
 		{
 			movementLeft = !movementLeft;
 			Debug.Log("Switch movement direction");
 		}
-		if(Physics.Raycast(ray, out hit, 50f) && hit.rigidbody != null){
-			hit.rigidbody.AddForce(Vector3.up, ForceMode.Impulse);
-			if (movementLeft)
+		if(Physics.Raycast(ray, out hit, 50f))
+		{
+			if (hit.rigidbody != null)
+			{
+				if (hit.transform.CompareTag("Sphere"))
+				{
+					Vector3 force = (hit.point - targetPos).normalized * 55f;
+					hit.rigidbody.AddForce(Vector3.left + force, ForceMode.Force);
+				}
+				else
+				{
+					Vector3 force = (hit.point - targetPos) * 55f;
+					hit.rigidbody.AddForceAtPosition(force, hit.point);
+				}
+				
+			}
+
+			targetPos = mousePos;
+			/*if (movementLeft)
 			{
 				hit.rigidbody.AddForce(Vector3.left, ForceMode.Impulse);
 			}
 			else
 			{
 				hit.rigidbody.AddForce(Vector3.right, ForceMode.Impulse);
-			}
-			
+			}*/
+
 		}
         
 		//can be commented out/removed
