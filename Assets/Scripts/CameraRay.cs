@@ -16,6 +16,8 @@ public class CameraRay : MonoBehaviour
 	private Vector3 anchorPoint;
 	private Quaternion anchorRot;
 	private Vector3 previousPos;
+	private float xForce;
+	private float zForce;
 	
 	private void Awake () {
 		cam = GetComponent<Camera>();
@@ -32,7 +34,7 @@ public class CameraRay : MonoBehaviour
 		RaycastHit hit;
 		
         cam = GetComponent<Camera>();
-		Vector3 mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
+		//Vector3 mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
 		var ray = cam.ScreenPointToRay(Input.mousePosition);
 
 		if (Input.GetKey(KeyCode.D))
@@ -40,36 +42,30 @@ public class CameraRay : MonoBehaviour
 			movementLeft = !movementLeft;
 			Debug.Log("Switch movement direction");
 		}
-		if(Physics.Raycast(ray, out hit, 50f))
+		
+		if(Physics.Raycast(ray, out hit, 60f))
 		{
 			if (hit.rigidbody != null)
 			{
-				
-				if (hit.transform.CompareTag("Sphere"))
+				Rigidbody rb = hit.rigidbody;
+				//norm direction = norm(destination - source)
+				if (rb.CompareTag("Sphere"))
 				{
-					Vector3 force = (mousePos - Input.mousePosition).normalized * 55f;
-					hit.rigidbody.AddForce(force, ForceMode.Force);
+					//Debug.Log("previousPosition: " + previousPos + "; Input Mouse: " + mousePos);
+					Vector3 force = (rb.transform.position - previousPos).normalized * 5f;
+					rb.AddForce(force,ForceMode.Impulse); //needs a bit tinkering 
 				}
 				else
 				{
-					Vector3 force = (Input.mousePosition - previousPos).normalized;
-					hit.rigidbody.AddForce(Vector3.up + force, ForceMode.Impulse);
+					Vector3 force = (rb.transform.position - previousPos).normalized * 10f;
+					hit.rigidbody.AddForce(force, ForceMode.Impulse);
 				}
 				
 			}
-
-			previousPos = mousePos;
-			/*if (movementLeft)
-			{
-				hit.rigidbody.AddForce(Vector3.left, ForceMode.Impulse);
-			}
-			else
-			{
-				hit.rigidbody.AddForce(Vector3.right, ForceMode.Impulse);
-			}*/
+			previousPos = hit.point;
 
 		}
-        
+		
 		//can be commented out/removed
 		//as long as you hold the right mouse button, you can navigate through the scene
 		if(Input.GetMouseButton(1)) {
