@@ -16,9 +16,7 @@ public class CameraRay : MonoBehaviour
 	private Vector3 anchorPoint;
 	private Quaternion anchorRot;
 	private Vector3 previousPos;
-	private float xForce;
-	private float zForce;
-	
+
 	private void Awake () {
 		cam = GetComponent<Camera>();
 	}
@@ -51,18 +49,17 @@ public class CameraRay : MonoBehaviour
 				//norm direction = norm(destination - source)
 				if (rb.CompareTag("Sphere"))
 				{
-					//Debug.Log("previousPosition: " + previousPos + "; Input Mouse: " + mousePos);
 					Vector3 force = (rb.transform.position - previousPos).normalized * 5f;
 					rb.AddForce(force,ForceMode.Impulse); //needs a bit tinkering 
 				}
 				else
 				{
 					Vector3 force = (rb.transform.position - previousPos).normalized * 10f;
-					hit.rigidbody.AddForce(force, ForceMode.Impulse);
+					rb.AddForce(force, ForceMode.Impulse);
 				}
 				
 			}
-			previousPos = hit.point;
+			previousPos = hit.point; //mouse position in 3D
 
 		}
 		
