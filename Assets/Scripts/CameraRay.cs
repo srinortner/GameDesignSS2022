@@ -15,7 +15,7 @@ public class CameraRay : MonoBehaviour
 	private Camera cam;
 	private Vector3 anchorPoint;
 	private Quaternion anchorRot;
-	private Vector3 targetPos;
+	private Vector3 previousPos;
 	
 	private void Awake () {
 		cam = GetComponent<Camera>();
@@ -23,7 +23,7 @@ public class CameraRay : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-	    targetPos = new Vector3();
+	    previousPos = new Vector3();
     }
 
     // Update is called once per frame
@@ -44,20 +44,21 @@ public class CameraRay : MonoBehaviour
 		{
 			if (hit.rigidbody != null)
 			{
+				
 				if (hit.transform.CompareTag("Sphere"))
 				{
-					Vector3 force = (hit.point - targetPos).normalized * 55f;
-					hit.rigidbody.AddForce(Vector3.left + force, ForceMode.Force);
+					Vector3 force = (mousePos - Input.mousePosition).normalized * 55f;
+					hit.rigidbody.AddForce(force, ForceMode.Force);
 				}
 				else
 				{
-					Vector3 force = (hit.point - targetPos) * 55f;
-					hit.rigidbody.AddForceAtPosition(force, hit.point);
+					Vector3 force = (Input.mousePosition - previousPos).normalized;
+					hit.rigidbody.AddForce(Vector3.up + force, ForceMode.Impulse);
 				}
 				
 			}
 
-			targetPos = mousePos;
+			previousPos = mousePos;
 			/*if (movementLeft)
 			{
 				hit.rigidbody.AddForce(Vector3.left, ForceMode.Impulse);
