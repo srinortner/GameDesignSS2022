@@ -43,12 +43,29 @@ public class CubiController : MonoBehaviour
                     }
                     
                 }
-                GetComponent<MeshRenderer>().enabled = false;
-                light.intensity = 10;
-                var lightTransform = light.transform;
-                var lightPosition = lightTransform.position;
-                lightPosition = new Vector3(lightPosition.x, lightPosition.y - 0.2f, lightPosition.z);
-                lightTransform.position = lightPosition;
+
+                PlatformController currentController = collision.gameObject.GetComponent<PlatformController>();
+                currentController.increaseHouseCounter();
+                currentController.addHouse(GetComponent<Transform>());
+                
+                if (currentController.getHouseCounter() == 3)
+                {
+                    //GetComponent<MeshRenderer>().enabled = false;
+                    currentController.activateHouses();
+                    light.intensity = 10;
+                    var lightTransform = light.transform;
+                    var lightPosition = lightTransform.position;
+                    lightPosition = new Vector3(lightPosition.x, lightPosition.y - 0.5f, lightPosition.z);
+                    lightTransform.position = lightPosition; 
+                } else if (currentController.getHouseCounter() >= 3)
+                {
+                    GetComponent<MeshRenderer>().enabled = false;
+                    light.intensity = 10;
+                    var lightTransform = light.transform;
+                    var lightPosition = lightTransform.position;
+                    lightPosition = new Vector3(lightPosition.x, lightPosition.y - 0.5f, lightPosition.z);
+                    lightTransform.position = lightPosition; 
+                }
             }
         }
     }
