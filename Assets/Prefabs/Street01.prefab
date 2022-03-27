@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1406502967096255195}
   m_Layer: 0
   m_Name: Street_Light_v1_4_001 (3)
-  m_TagString: Untagged
+  m_TagString: StreetLight
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 6682393407078854152}
   m_Layer: 0
   m_Name: Street_Light_v1_4_001 (2)
-  m_TagString: Untagged
+  m_TagString: StreetLight
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -175,7 +175,7 @@ GameObject:
   - component: {fileID: 7361809749071605403}
   m_Layer: 0
   m_Name: Street_Light_v1_4_001 (5)
-  m_TagString: Untagged
+  m_TagString: StreetLight
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -256,7 +256,7 @@ GameObject:
   - component: {fileID: 2101166688916600685}
   m_Layer: 0
   m_Name: Street_Light_v1_4_001 (6)
-  m_TagString: Untagged
+  m_TagString: StreetLight
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -337,7 +337,7 @@ GameObject:
   - component: {fileID: 5765786281673410515}
   m_Layer: 0
   m_Name: Street_Light_v1_4_001
-  m_TagString: Untagged
+  m_TagString: StreetLight
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -418,7 +418,7 @@ GameObject:
   - component: {fileID: 6897197924921396366}
   m_Layer: 0
   m_Name: Street_Light_v1_4_001 (3)
-  m_TagString: Untagged
+  m_TagString: StreetLight
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -633,7 +633,7 @@ GameObject:
   - component: {fileID: 5259782859724102649}
   m_Layer: 0
   m_Name: Street_Light_v1_4_001 (6)
-  m_TagString: Untagged
+  m_TagString: StreetLight
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -752,7 +752,7 @@ GameObject:
   - component: {fileID: 3514422576507653407}
   m_Layer: 0
   m_Name: Street_Light_v1_4_001
-  m_TagString: Untagged
+  m_TagString: StreetLight
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -833,7 +833,7 @@ GameObject:
   - component: {fileID: 8939198260388850948}
   m_Layer: 0
   m_Name: Street_Light_v1_4_001 (1)
-  m_TagString: Untagged
+  m_TagString: StreetLight
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -914,7 +914,7 @@ GameObject:
   - component: {fileID: 6787150797787392246}
   m_Layer: 0
   m_Name: Street_Light_v1_4_001 (5)
-  m_TagString: Untagged
+  m_TagString: StreetLight
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -995,7 +995,7 @@ GameObject:
   - component: {fileID: 1396167367680354569}
   m_Layer: 0
   m_Name: Street_Light_v1_4_001 (4)
-  m_TagString: Untagged
+  m_TagString: StreetLight
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1076,7 +1076,7 @@ GameObject:
   - component: {fileID: 453972036639302339}
   m_Layer: 0
   m_Name: Street_Light_v1_4_001 (4)
-  m_TagString: Untagged
+  m_TagString: StreetLight
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1157,7 +1157,7 @@ GameObject:
   - component: {fileID: 3174950029014588869}
   m_Layer: 0
   m_Name: Street_Light_v1_4_001 (7)
-  m_TagString: Untagged
+  m_TagString: StreetLight
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1238,7 +1238,7 @@ GameObject:
   - component: {fileID: 3824583636462079043}
   m_Layer: 0
   m_Name: Street_Light_v1_4_001 (2)
-  m_TagString: Untagged
+  m_TagString: StreetLight
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1319,7 +1319,7 @@ GameObject:
   - component: {fileID: 3017430418251055182}
   m_Layer: 0
   m_Name: Street_Light_v1_4_001 (1)
-  m_TagString: Untagged
+  m_TagString: StreetLight
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

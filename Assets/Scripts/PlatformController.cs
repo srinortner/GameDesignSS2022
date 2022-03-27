@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlatformController : MonoBehaviour
 {
     private int houseCounter;
+    private List<Transform> children;
 
     private List<Transform> houses;
     // Start is called before the first frame update
@@ -12,20 +13,34 @@ public class PlatformController : MonoBehaviour
     {
         houseCounter = 0;
         houses = new List<Transform>();
+        children = GetAllChildren(GetComponent<Transform>());
     }
 
     // Update is called once per frame
     void Update()
     {
+        
         if (houseCounter == 5)
         {
-            List <Transform> children = GetAllChildren(GetComponent<Transform>());
             print(children.ToString());
             foreach (var child in children)
             {
                 if (child.CompareTag("Street"))
                 {
                     print("found Child with tag street");
+                    child.GetComponentInParent<MeshRenderer>().enabled = true;
+                }
+                    
+            }
+        }
+
+        if (houseCounter == 6)
+        {
+            foreach (var child in children)
+            {
+                if (child.CompareTag("StreetLight"))
+                {
+                    print("found Child with tag streetLight");
                     child.GetComponentInParent<MeshRenderer>().enabled = true;
                 }
                     
