@@ -26,6 +26,12 @@ public class CameraRay : MonoBehaviour
 	    previousPos = new Vector3();
     }
 
+    private void Update()
+    {
+	    //Zoom in and out with Mouse Wheel
+	    this.transform.Translate(0, 0, Input.GetAxis("Mouse ScrollWheel") * this.navigationSpeed, Space.Self);
+    }
+
     // Update is called once per frame
     void FixedUpdate()
     {
@@ -47,14 +53,16 @@ public class CameraRay : MonoBehaviour
 			{
 				Rigidbody rb = hit.rigidbody;
 				//norm direction = norm(destination - source)
+				//Spheres
 				if (rb.CompareTag("Sphere"))
 				{
 					Vector3 force = (rb.transform.position - previousPos).normalized * 5f;
 					rb.AddForce(force,ForceMode.Impulse); //needs a bit tinkering 
 				}
+				//Cubes
 				else
 				{
-					Vector3 force = (rb.transform.position - previousPos).normalized * 10f;
+					Vector3 force = (rb.transform.position - previousPos).normalized * 5f;
 					rb.AddForce(force, ForceMode.Impulse);
 				}
 				
@@ -95,7 +103,6 @@ public class CameraRay : MonoBehaviour
 			transform.rotation = rot;
 		}
 		
-		//Zoom in and out with Mouse Wheel
-		this.transform.Translate(0, 0, Input.GetAxis("Mouse ScrollWheel") * this.navigationSpeed, Space.Self);
+		
     }
 }
