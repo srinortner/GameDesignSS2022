@@ -19,12 +19,14 @@ public class PlatformController : MonoBehaviour
     {
         if (houseCounter == 5)
         {
-            List<Transform> children = GetAllChildren(GetComponent<Transform>());
+            List <Transform> children = GetAllChildren(GetComponent<Transform>());
+            print(children.ToString());
             foreach (var child in children)
             {
                 if (child.CompareTag("Street"))
                 {
-                    child.GetComponentInParent<GameObject>().SetActive(true);
+                    print("found Child with tag street");
+                    child.GetComponentInParent<MeshRenderer>().enabled = true;
                 }
                     
             }
@@ -55,13 +57,13 @@ public class PlatformController : MonoBehaviour
         return houseCounter;
     }
     
-    static List<Transform> GetAllChildren(Transform parent)
+    static List<Transform> GetAllChildren(Transform parent, List<Transform> transformList = null)
     {
-        List<Transform> transformList = new List<Transform>();
+        if (transformList == null) transformList = new List<Transform>();
           
         foreach (Transform child in parent) {
             transformList.Add(child);
-            GetAllChildren(child);
+            GetAllChildren(child, transformList);
         }
         return transformList;
     }

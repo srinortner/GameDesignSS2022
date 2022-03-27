@@ -49,7 +49,7 @@ public class balls : MonoBehaviour
             ParticleSystem.MainModule settings = GetComponent<ParticleSystem>().main;
             settings.startColor = new ParticleSystem.MinMaxGradient(c);
             this.GetComponent<Rigidbody>().AddForce(Vector3.right,ForceMode.Impulse);
-            Debug.Log("color is set");
+          //  Debug.Log("color is set");
         }
 
         
