@@ -20,11 +20,18 @@ public class CubiController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Platform"))
         {
+            Vector2 direction = collision.GetContact(0).normal;
+         /*   If( direction.x == 1 ) print(“right”);
+            If( direction.x == -1 ) print(“left”);
+            If( direction.y == 1 ) print(“up”);
+            If( direction.y == -1 ) print(“down”); */
+            
             Color currentColor = GetComponent<Renderer>().material.color;
-            if (currentColor == collision.gameObject.GetComponent<Renderer>().material.color)
+            if (currentColor == collision.gameObject.GetComponent<Renderer>().material.color && checkDirection(currentColor, direction))
             {
                 GetComponent<Rigidbody>().useGravity = true;
                 GetComponent<Rigidbody>().isKinematic = true;
+                GetComponent<Transform>().rotation = Quaternion.identity;
                 List <Transform> children = GetAllChildren(GetComponent<Transform>());
                 Light light = GetComponentInChildren<Light>();
                 foreach (var child in children)
@@ -44,6 +51,26 @@ public class CubiController : MonoBehaviour
                 lightTransform.position = lightPosition;
             }
         }
+    }
+    
+    private bool checkDirection(Color color, Vector2 direction)
+    {
+        if (color == Color.cyan || color == Color.red)
+        {
+            if (direction.x == -1)
+            {
+                return true;
+            }
+        }
+        else
+        {
+            if (direction.y == 1)
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
     
     static List<Transform> GetAllChildren(Transform parent, List<Transform> transformList = null)
