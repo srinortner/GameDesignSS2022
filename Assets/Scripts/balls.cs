@@ -105,7 +105,7 @@ public class balls : MonoBehaviour
     {
         Color[] colors = {Color.blue, Color.cyan, Color.green, Color.magenta, Color.red, Color.yellow,};
 
-        int random = Random.Range(0,5);
+        int random = Random.Range(0,6);
         
      //   Debug.Log(colors[random].ToString());
         return colors[random];
