@@ -38,7 +38,14 @@ public class CubiController : MonoBehaviour
                 {
                     if (child.CompareTag("House"))
                     {
-                        child.GetComponent<Renderer>().material.color = currentColor;
+                        float change = 0.2f;
+                        float r = currentColor.r >= 0.5f ? currentColor.r - change : currentColor.r + change;
+                        float g = currentColor.g >= 0.5f ? currentColor.g - change : currentColor.g + change;
+                        float b = currentColor.b >= 0.5f ? currentColor.b - change : currentColor.b + change;
+                        Color darker = new Color(r,g,b);
+                        print(currentColor);
+                        print(darker);
+                        child.GetComponent<Renderer>().material.color = darker;
                         child.transform.position = new Vector3(child.position.x, child.position.y - 0.01f, child.position.z);
                     }
                     
@@ -53,18 +60,18 @@ public class CubiController : MonoBehaviour
                     //GetComponent<MeshRenderer>().enabled = false;
                     currentController.activateHouses();
                     light.intensity = 10;
-                    var lightTransform = light.transform;
+                 /*   var lightTransform = light.transform;
                     var lightPosition = lightTransform.position;
                     lightPosition = new Vector3(lightPosition.x, lightPosition.y - 0.5f, lightPosition.z);
-                    lightTransform.position = lightPosition; 
+                    lightTransform.position = lightPosition; */
                 } else if (currentController.getHouseCounter() >= 3)
                 {
                     GetComponent<MeshRenderer>().enabled = false;
                     light.intensity = 10;
-                    var lightTransform = light.transform;
+                 /*   var lightTransform = light.transform;
                     var lightPosition = lightTransform.position;
                     lightPosition = new Vector3(lightPosition.x, lightPosition.y - 0.5f, lightPosition.z);
-                    lightTransform.position = lightPosition; 
+                    lightTransform.position = lightPosition; */
                 }
             }
         }
