@@ -57,6 +57,7 @@ public class CameraRay : MonoBehaviour
 				if (rb.CompareTag("Sphere"))
 				{
 					Vector3 force = (rb.transform.position - previousPos).normalized * 7f;
+					force += Vector3.up * 2f;
 					rb.AddForce(force,ForceMode.Impulse); //needs a bit tinkering 
 					Vector3 middle = new Vector3();
 				}
