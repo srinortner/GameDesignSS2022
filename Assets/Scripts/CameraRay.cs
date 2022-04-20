@@ -58,6 +58,7 @@ public class CameraRay : MonoBehaviour
 				{
 					Vector3 force = (rb.transform.position - previousPos).normalized * 7f;
 					rb.AddForce(force,ForceMode.Impulse); //needs a bit tinkering 
+					Vector3 middle = new Vector3();
 				}
 				//Cubes
 				else

@@ -19,6 +19,8 @@ public class balls : MonoBehaviour
     public Transform platformMagenta;
     public Transform platformCyan;
     public Transform platformGreen;
+    public Transform middle;
+    private Vector3 startPosition;
     
     // Start is called before the first frame update
     void Start()
@@ -27,11 +29,24 @@ public class balls : MonoBehaviour
         orginalPosition = this.transform.position;
         _particles = new ParticleSystem.Particle[1000]; //initialize variable because else NullReference
         _count = 0;
+        startPosition = GetComponent<Transform>().position;
     }
 
     // Update is called once per frame
     void Update()
     {
+        Transform tr = GetComponent<Transform>();
+        Rigidbody rb = GetComponent<Rigidbody>();
+        if (tr.position != startPosition && (tr.position.x > 5f || tr.position.x < -5f) && (tr.position.z > 5f || tr.position.z < -5f))
+        {
+            print("Startpos: " + startPosition +" current pos: " + tr.position);
+            tr.LookAt(middle);
+            float power = 0.05f;
+            rb.AddRelativeForce(0, 0, power);  
+        }
+        
+        
+        
         if (this.transform.position.x > 25.0f || this.transform.position.x < -25.0f)
         {
             this.transform.position = orginalPosition;

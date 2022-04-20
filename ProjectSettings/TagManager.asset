@@ -11,6 +11,7 @@ TagManager:
   - Cube
   - Street
   - StreetLight
+  - Middle
   layers:
   - Default
   - TransparentFX

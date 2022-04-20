@@ -18,7 +18,7 @@ public class CubiController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Platform"))
+        if (collision.gameObject.CompareTag("Platform") || collision.gameObject.CompareTag("House"))
         {
             Vector2 direction = collision.GetContact(0).normal;
          /*   If( direction.x == 1 ) print(“right”);
