@@ -27,8 +27,10 @@ public class CubiController : MonoBehaviour
             If( direction.y == -1 ) print(“down”); */
             
             Color currentColor = GetComponent<Renderer>().material.color;
+            print("Collision Color: " + collision.gameObject.GetComponent<Renderer>().material.color + " Current Color: " + currentColor + " direction: " + direction);
             if (currentColor == collision.gameObject.GetComponent<Renderer>().material.color && checkDirection(currentColor, direction))
             {
+                print("TRUE");
                 GetComponent<Rigidbody>().useGravity = true;
                 GetComponent<Rigidbody>().isKinematic = true;
                 GetComponent<Transform>().rotation = Quaternion.identity;
@@ -81,15 +83,18 @@ public class CubiController : MonoBehaviour
     {
         if (color == Color.cyan || color == Color.red)
         {
-            if (direction.x == -1)
+            if (direction.x == -1f)
             {
                 return true;
             }
         }
         else
         {
-            if (direction.y == 1)
+            print("ELSE");
+            print(direction);
+            if (direction.y == 1f)
             {
+                print("TRUE");
                 return true;
             }
         }

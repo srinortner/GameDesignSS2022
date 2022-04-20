@@ -39,7 +39,6 @@ public class balls : MonoBehaviour
         Rigidbody rb = GetComponent<Rigidbody>();
         if (tr.position != startPosition && (tr.position.x > 5f || tr.position.x < -5f) && (tr.position.z > 5f || tr.position.z < -5f))
         {
-            print("Startpos: " + startPosition +" current pos: " + tr.position);
             tr.LookAt(middle);
             float power = 0.05f;
             rb.AddRelativeForce(0, 0, power);  
@@ -55,18 +54,20 @@ public class balls : MonoBehaviour
 
     private void OnCollisionEnter(Collision other)
     {
-        if (other.collider.tag == "Wall")
+        ParticleSystem.MainModule settings = GetComponent<ParticleSystem>().main;
+        ParticleSystem.MinMaxGradient particleColor = settings.startColor;
+        ParticleSystem.MinMaxGradient noColor = new ParticleSystem.MinMaxGradient(Color.white);
+        if (other.collider.tag == "Wall" && !particleColor.Equals(noColor))
         {
             float cubi = Random.Range(0.0f,1.0f);
             Debug.Log(cubi);
-            Color c = generateRandomColor(_count);
             Vector3 currentPosition = gameObject.transform.position;
    
             // cubiPrefab.GetComponent<Renderer>().sharedMaterial.color = c;
-            cubiRain(c, currentPosition);
+            cubiRain(particleColor.color, currentPosition);
 
-            ParticleSystem.MainModule settings = GetComponent<ParticleSystem>().main;
-            settings.startColor = new ParticleSystem.MinMaxGradient(c);
+            
+            settings.startColor = particleColor;
             _particles = new ParticleSystem.Particle[settings.maxParticles]; // generate array of particles
             _amount = _particleSystem.GetParticles(_particles); // get int value of all particles
 
@@ -78,6 +79,28 @@ public class balls : MonoBehaviour
               //reset count variable
               _count = 0;
           }
+        }
+
+        if (other.collider.tag == "Platform")
+        {
+            Color c = other.gameObject.GetComponent<Renderer>().material.color;
+            Vector3 currentPosition = gameObject.transform.position;
+   
+            // cubiPrefab.GetComponent<Renderer>().sharedMaterial.color = c;
+            cubiRain(c, currentPosition);
+            
+            settings.startColor = new ParticleSystem.MinMaxGradient(c);
+            _particles = new ParticleSystem.Particle[settings.maxParticles]; // generate array of particles
+            _amount = _particleSystem.GetParticles(_particles); // get int value of all particles
+
+            this.GetComponent<Rigidbody>().AddForce(Vector3.right,ForceMode.Impulse);
+            //  Debug.Log("color is set");
+            _count++;
+            if (_count >= 6)
+            {
+                //reset count variable
+                _count = 0;
+            }
         }
 
         
