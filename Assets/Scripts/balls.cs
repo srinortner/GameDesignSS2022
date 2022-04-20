@@ -57,7 +57,10 @@ public class balls : MonoBehaviour
         ParticleSystem.MainModule settings = GetComponent<ParticleSystem>().main;
         ParticleSystem.MinMaxGradient particleColor = settings.startColor;
         ParticleSystem.MinMaxGradient noColor = new ParticleSystem.MinMaxGradient(Color.white);
-        if (other.collider.tag == "Wall" && !particleColor.Equals(noColor))
+        print(particleColor);
+        print(noColor);
+        print(!particleColor.Equals(noColor));
+        if (other.collider.tag == "Wall" && !particleColor.color.Equals(Color.white))
         {
             float cubi = Random.Range(0.0f,1.0f);
             Debug.Log(cubi);

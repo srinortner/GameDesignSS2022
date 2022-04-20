@@ -9,6 +9,9 @@ public class CubiController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        GetComponent<TrailRenderer>().startColor = GetComponent<Renderer>().material.color;
+        GetComponent<TrailRenderer>().endColor = GetComponent<Renderer>().material.color;
+        
     }
 
     // Update is called once per frame
