@@ -56,16 +56,16 @@ public class CameraRay : MonoBehaviour
 				//Spheres
 				if (rb.CompareTag("Sphere"))
 				{
-					Vector3 force = (rb.transform.position - previousPos).normalized * 7f;
-					force += Vector3.up * 2f;
+					Vector3 force = (rb.transform.position - previousPos).normalized * 3f;
+					force += Vector3.up * 1.5f;
 					rb.AddForce(force,ForceMode.Impulse); //needs a bit tinkering 
 					Vector3 middle = new Vector3();
 				}
 				//Cubes
 				else
 				{
-					Vector3 force = (rb.transform.position - previousPos).normalized * 6f;
-					force += Vector3.up * 3f;
+					Vector3 force = (rb.transform.position - previousPos).normalized * 2f;
+					force += Vector3.up * 1.5f;
 					rb.AddForce(force, ForceMode.Impulse);
 				}
 				
