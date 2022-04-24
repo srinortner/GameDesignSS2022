@@ -21,6 +21,7 @@ public class CameraRay : MonoBehaviour
 	private float startTime;
 	private GameObject[] spheres;
 	private GameObject text;
+	private List<Color> colorList;
 
 	private void Awake () {
 		cam = GetComponent<Camera>();
@@ -31,6 +32,7 @@ public class CameraRay : MonoBehaviour
 	    previousPos = new Vector3();
 	    spheres = GameObject.FindGameObjectsWithTag("Sphere");
 	    text = GameObject.FindGameObjectWithTag("Text");
+	    colorList = new List<Color>(){Color.magenta, Color.blue, Color.cyan, Color.black};
     }
 
     private void Update()
@@ -70,6 +72,7 @@ public class CameraRay : MonoBehaviour
 					force += Vector3.up * 1.5f;
 					rb.AddForce(force,ForceMode.Impulse); //needs a bit tinkering 
 					Vector3 middle = new Vector3();
+					usabilityOn = true;
 				}
 				//Cubes
 				else
@@ -77,14 +80,20 @@ public class CameraRay : MonoBehaviour
 					Vector3 force = (rb.transform.position - previousPos).normalized * 3f;
 					force += Vector3.up * 1.5f;
 					rb.AddForce(force, ForceMode.Impulse);
+					usabilityOn = true;
 				}
 				
 			}
 			previousPos = hit.point; //mouse position in 3D
-			foreach (var sphere in spheres)
+			/* TODO implement timer that actually counts argh and change color with colorList over time
+			if (usabilityOn == false)
 			{
-				sphere.GetComponent<Renderer>().material.SetColor("_Color", Color.blue);
-			}
+				foreach (var sphere in spheres)
+				{
+					sphere.GetComponent<Renderer>().material.SetColor("_Color", Color.black);
+				}
+			}*/
+			usabilityOn = false;
 		}
 		
 		//can be commented out/removed
