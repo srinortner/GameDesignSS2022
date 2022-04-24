@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -19,6 +20,7 @@ public class CameraRay : MonoBehaviour
 	private bool usabilityOn = false;
 	private float startTime;
 	private GameObject[] spheres;
+	private GameObject text;
 
 	private void Awake () {
 		cam = GetComponent<Camera>();
@@ -28,10 +30,19 @@ public class CameraRay : MonoBehaviour
     {
 	    previousPos = new Vector3();
 	    spheres = GameObject.FindGameObjectsWithTag("Sphere");
+	    text = GameObject.FindGameObjectWithTag("Text");
     }
 
     private void Update()
     {
+	    if (text != null)
+	    {
+		    //GetMouseButton(0) = Left Mouse Button
+		    if (text.activeInHierarchy && Input.GetMouseButton(0))
+		    {
+			    text.SetActive(false);
+		    }
+	    }
 	    //Zoom in and out with Mouse Wheel
 	    this.transform.Translate(0, 0, Input.GetAxis("Mouse ScrollWheel") * this.navigationSpeed, Space.Self);
 	    //Debug.Log(spheres[0]);

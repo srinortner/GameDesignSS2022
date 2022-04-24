@@ -12,6 +12,7 @@ TagManager:
   - Street
   - StreetLight
   - Middle
+  - Text
   layers:
   - Default
   - TransparentFX
