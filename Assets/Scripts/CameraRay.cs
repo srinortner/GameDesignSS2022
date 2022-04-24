@@ -16,6 +16,9 @@ public class CameraRay : MonoBehaviour
 	private Vector3 anchorPoint;
 	private Quaternion anchorRot;
 	private Vector3 previousPos;
+	private bool usabilityOn = false;
+	private float startTime;
+	private GameObject[] spheres;
 
 	private void Awake () {
 		cam = GetComponent<Camera>();
@@ -24,29 +27,25 @@ public class CameraRay : MonoBehaviour
     void Start()
     {
 	    previousPos = new Vector3();
+	    spheres = GameObject.FindGameObjectsWithTag("Sphere");
     }
 
     private void Update()
     {
 	    //Zoom in and out with Mouse Wheel
 	    this.transform.Translate(0, 0, Input.GetAxis("Mouse ScrollWheel") * this.navigationSpeed, Space.Self);
+	    //Debug.Log(spheres[0]);
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-		RaycastHit hit;
+	    RaycastHit hit;
 		
         cam = GetComponent<Camera>();
 		//Vector3 mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
 		var ray = cam.ScreenPointToRay(Input.mousePosition);
 
-		if (Input.GetKey(KeyCode.D))
-		{
-			movementLeft = !movementLeft;
-			Debug.Log("Switch movement direction");
-		}
-		
 		if(Physics.Raycast(ray, out hit, 60f))
 		{
 			if (hit.rigidbody != null)
@@ -64,19 +63,22 @@ public class CameraRay : MonoBehaviour
 				//Cubes
 				else
 				{
-					Vector3 force = (rb.transform.position - previousPos).normalized * 2f;
+					Vector3 force = (rb.transform.position - previousPos).normalized * 3f;
 					force += Vector3.up * 1.5f;
 					rb.AddForce(force, ForceMode.Impulse);
 				}
 				
 			}
 			previousPos = hit.point; //mouse position in 3D
-
+			foreach (var sphere in spheres)
+			{
+				sphere.GetComponent<Renderer>().material.SetColor("_Color", Color.blue);
+			}
 		}
 		
 		//can be commented out/removed
 		//as long as you hold the right mouse button, you can navigate through the scene
-		if(Input.GetMouseButton(1)) {
+		/*if(Input.GetMouseButton(1)) {
 			Vector3 move = Vector3.zero;
 			float speed = navigationSpeed * (Input.GetKey(KeyCode.LeftShift) ? shiftMultiplier : 1f) * Time.deltaTime * 9.1f;
 			if(Input.GetKey(KeyCode.W))
@@ -104,7 +106,7 @@ public class CameraRay : MonoBehaviour
 			Vector3 dif = anchorPoint - new Vector3(Input.mousePosition.y, -Input.mousePosition.x);
 			rot.eulerAngles += dif * sensitivity;
 			transform.rotation = rot;
-		}
+		}*/
 		
 		
     }
