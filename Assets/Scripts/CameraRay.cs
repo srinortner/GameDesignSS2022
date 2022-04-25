@@ -22,6 +22,7 @@ public class CameraRay : MonoBehaviour
 	private GameObject[] spheres;
 	private GameObject text;
 	private List<Color> colorList;
+	private SliderController _sliderController;
 
 	private void Awake () {
 		cam = GetComponent<Camera>();
@@ -33,6 +34,7 @@ public class CameraRay : MonoBehaviour
 	    spheres = GameObject.FindGameObjectsWithTag("Sphere");
 	    text = GameObject.FindGameObjectWithTag("Text");
 	    colorList = new List<Color>(){Color.magenta, Color.blue, Color.cyan, Color.black};
+	    _sliderController = GameObject.FindObjectOfType<SliderController>();
     }
 
     private void Update()
@@ -99,7 +101,7 @@ public class CameraRay : MonoBehaviour
 				//Spheres
 				if (rb.CompareTag("Sphere"))
 				{
-					Vector3 force = (rb.transform.position - previousPos).normalized * 3f;
+					Vector3 force = (rb.transform.position - previousPos).normalized * _sliderController.getSlider().value;
 					force += Vector3.up * 1.5f;
 					rb.AddForce(force, ForceMode.Impulse); //needs a bit tinkering 
 					Vector3 middle = new Vector3();
@@ -108,7 +110,7 @@ public class CameraRay : MonoBehaviour
 				//Cubes
 				else
 				{
-					Vector3 force = (rb.transform.position - previousPos).normalized * 4f;
+					Vector3 force = (rb.transform.position - previousPos).normalized * _sliderController.getSlider().value;
 					force += Vector3.up * 1.5f;
 					rb.AddForce(force, ForceMode.Impulse);
 					usabilityOn = true;
