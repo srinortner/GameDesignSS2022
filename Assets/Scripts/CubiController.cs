@@ -6,12 +6,15 @@ using UnityEngine.Experimental.GlobalIllumination;
 
 public class CubiController : MonoBehaviour
 {
+    public GameObject audioController;
+
+    private AudioManager _audioManager;
     // Start is called before the first frame update
     void Start()
     {
         GetComponent<TrailRenderer>().startColor = GetComponent<Renderer>().material.color;
         GetComponent<TrailRenderer>().endColor = GetComponent<Renderer>().material.color;
-        
+        _audioManager = audioController.GetComponent<AudioManager>();
     }
 
     // Update is called once per frame
@@ -39,6 +42,7 @@ public class CubiController : MonoBehaviour
                 GetComponent<Transform>().rotation = Quaternion.identity;
                 List <Transform> children = GetAllChildren(GetComponent<Transform>());
                 Light light = GetComponentInChildren<Light>();
+                _audioManager.Play("addCube");
                 foreach (var child in children)
                 {
                     if (child.CompareTag("House"))
@@ -52,6 +56,7 @@ public class CubiController : MonoBehaviour
                         print(darker);
                         child.GetComponent<Renderer>().material.color = darker;
                         child.transform.position = new Vector3(child.position.x, child.position.y - 0.01f, child.position.z);
+                        
                     }
                     
                 }

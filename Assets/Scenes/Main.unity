@@ -6709,6 +6709,7 @@ MonoBehaviour:
   platformCyan: {fileID: 497656445}
   platformGreen: {fileID: 36867944}
   middle: {fileID: 381328365}
+  audioController: {fileID: 874497624}
 --- !u!54 &391854239
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -7558,6 +7559,7 @@ MonoBehaviour:
   platformCyan: {fileID: 497656445}
   platformGreen: {fileID: 36867944}
   middle: {fileID: 381328365}
+  audioController: {fileID: 874497624}
 --- !u!199 &707344882
 ParticleSystemRenderer:
   serializedVersion: 6
@@ -12773,11 +12775,11 @@ MonoBehaviour:
     loop: 1
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
-  - name: 
-    clip: {fileID: 0}
-    volume: 0
+  - name: addCube
+    clip: {fileID: 8300000, guid: 29bde6326b4c34ad8a12da475f79b50a, type: 3}
+    volume: 1
     volumeVariance: 0
-    pitch: 0
+    pitch: 1
     pitchVariance: 0
     loop: 0
     mixerGroup: {fileID: 0}
@@ -13315,6 +13317,7 @@ MonoBehaviour:
   platformCyan: {fileID: 497656445}
   platformGreen: {fileID: 36867944}
   middle: {fileID: 381328365}
+  audioController: {fileID: 874497624}
 --- !u!199 &1022911398
 ParticleSystemRenderer:
   serializedVersion: 6
@@ -18340,6 +18343,7 @@ MonoBehaviour:
   platformCyan: {fileID: 497656445}
   platformGreen: {fileID: 36867944}
   middle: {fileID: 381328365}
+  audioController: {fileID: 874497624}
 --- !u!199 &1079743171
 ParticleSystemRenderer:
   serializedVersion: 6
