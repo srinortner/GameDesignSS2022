@@ -14,6 +14,7 @@ public class CameraRay : MonoBehaviour
 	[SerializeField] float sensitivity = 1.0f;
  
 	private Camera cam;
+	public float ForceUp;
 	private Vector3 anchorPoint;
 	private Quaternion anchorRot;
 	private Vector3 previousPos;
@@ -98,11 +99,13 @@ public class CameraRay : MonoBehaviour
 			{
 				Rigidbody rb = hit.rigidbody;
 				//norm direction = norm(destination - source)
+				Vector3 dir = rb.transform.position - hit.point;
+				Vector3 hit_dir = new Vector3(dir.x, 0, dir.z).normalized;
 				//Spheres
 				if (rb.CompareTag("Sphere"))
 				{
-					Vector3 force = (rb.transform.position - previousPos).normalized * _sliderController.getSlider().value;
-					force += Vector3.up * 1.5f;
+					Vector3 force = hit_dir * _sliderController.getSlider().value;
+					force += Vector3.up * ForceUp;
 					rb.AddForce(force, ForceMode.Impulse); //needs a bit tinkering 
 					Vector3 middle = new Vector3();
 					usabilityOn = true;
@@ -110,8 +113,8 @@ public class CameraRay : MonoBehaviour
 				//Cubes
 				else
 				{
-					Vector3 force = (rb.transform.position - previousPos).normalized * _sliderController.getSlider().value;
-					force += Vector3.up * 1.5f;
+					Vector3 force = hit_dir * _sliderController.getSlider().value;
+					force += Vector3.up * ForceUp;
 					rb.AddForce(force, ForceMode.Impulse);
 					usabilityOn = true;
 				}

@@ -43,7 +43,7 @@ public class balls : MonoBehaviour
         if (tr.position != startPosition && (tr.position.x > 5f || tr.position.x < -5f) && (tr.position.z > 5f || tr.position.z < -5f))
         {
             tr.LookAt(middle);
-            float power = 0.05f;
+            float power = 0.3f;
             rb.AddRelativeForce(0, 0, power);  
         }
         
