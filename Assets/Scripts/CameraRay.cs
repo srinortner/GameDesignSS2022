@@ -113,7 +113,7 @@ public class CameraRay : MonoBehaviour
 					usabilityOn = true;
 				}
 				//Cubes
-				else
+				else if (rb.CompareTag("Cubi"))
 				{
 					if (!isMoving(rb))
 					{
@@ -124,8 +124,6 @@ public class CameraRay : MonoBehaviour
 						usabilityOn = true;
 					}
 				}
-				
-
 			}
 
 			previousPos = hit.point; //mouse position in 3D
