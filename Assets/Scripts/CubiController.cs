@@ -12,6 +12,7 @@ public class CubiController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        audioController = GameObject.FindWithTag("AudioManager");
         GetComponent<TrailRenderer>().startColor = GetComponent<Renderer>().material.color;
         GetComponent<TrailRenderer>().endColor = GetComponent<Renderer>().material.color;
         _audioManager = audioController.GetComponent<AudioManager>();
