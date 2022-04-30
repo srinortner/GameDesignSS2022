@@ -107,6 +107,7 @@ public class CameraRay : MonoBehaviour
 				{
 					Vector3 force = hit_dir * _sliderController.getSlider().value;
 					force += Vector3.up * ForceUp;
+					Debug.DrawRay(rb.position, force, Color.black, 3f); //activate gizmo in game view to see ray
 					rb.AddForce(force, ForceMode.Impulse); //needs a bit tinkering 
 					Vector3 middle = new Vector3();
 					usabilityOn = true;
@@ -118,6 +119,7 @@ public class CameraRay : MonoBehaviour
 					{
 						Vector3 force = hit_dir * _sliderController.getSlider().value;
 						force += Vector3.up * ForceUp;
+						Debug.DrawRay(rb.position, force, Color.grey, 3f);
 						rb.AddForce(force, ForceMode.Impulse);
 						usabilityOn = true;
 					}
