@@ -51,8 +51,8 @@ public class CameraRay : MonoBehaviour
 	    //Zoom in and out with Mouse Wheel
 	    this.transform.Translate(0, 0, Input.GetAxis("Mouse ScrollWheel") * this.navigationSpeed, Space.Self);
 	    
-	    //as long as you hold the right mouse button, you can navigate through the scene
-	    if(Input.GetMouseButton(1)) {
+	    //as long as you hold the left mouse button, you can navigate through the scene
+	    if(Input.GetMouseButton(0)) {
 		    Vector3 move = Vector3.zero;
 		    float speed = navigationSpeed * (Input.GetKey(KeyCode.LeftShift) ? shiftMultiplier : 1f) * Time.deltaTime * 9.1f;
 		    if(Input.GetKey(KeyCode.W))
@@ -70,11 +70,11 @@ public class CameraRay : MonoBehaviour
 		    transform.Translate(move);
 	    }
  
-	    if(Input.GetMouseButtonDown(1)) {
+	    if(Input.GetMouseButtonDown(0)) {
 		    anchorPoint = new Vector3(Input.mousePosition.y, -Input.mousePosition.x);
 		    anchorRot = transform.rotation;
 	    }
-	    if(Input.GetMouseButton(1)) {
+	    if(Input.GetMouseButton(0)) {
 		    Quaternion rot = anchorRot;
  
 		    Vector3 dif = anchorPoint - new Vector3(Input.mousePosition.y, -Input.mousePosition.x);
@@ -100,7 +100,7 @@ public class CameraRay : MonoBehaviour
 				Rigidbody rb = hit.rigidbody; 
 				//norm direction = norm(destination - source)
 				Vector3 dir = rb.transform.position - hit.point;
-				Vector3 hit_dir = new Vector3(dir.x, dir.y, dir.z).normalized;
+				Vector3 hit_dir = new Vector3(dir.x, 0f, dir.z).normalized;
 				
 				//Spheres
 				if (rb.CompareTag("Sphere"))
