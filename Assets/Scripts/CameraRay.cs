@@ -50,7 +50,7 @@ public class CameraRay : MonoBehaviour
 	    }
 	    //Zoom in and out with Mouse Wheel
 	    this.transform.Translate(0, 0, Input.GetAxis("Mouse ScrollWheel") * this.navigationSpeed, Space.Self);
-	    //can be commented out/removed
+	    
 	    //as long as you hold the right mouse button, you can navigate through the scene
 	    if(Input.GetMouseButton(1)) {
 		    Vector3 move = Vector3.zero;
@@ -97,10 +97,11 @@ public class CameraRay : MonoBehaviour
 		{
 			if (hit.rigidbody != null)
 			{
-				Rigidbody rb = hit.rigidbody;
+				Rigidbody rb = hit.rigidbody; 
 				//norm direction = norm(destination - source)
 				Vector3 dir = rb.transform.position - hit.point;
-				Vector3 hit_dir = new Vector3(dir.x, 0, dir.z).normalized;
+				Vector3 hit_dir = new Vector3(dir.x, dir.y, dir.z).normalized;
+				
 				//Spheres
 				if (rb.CompareTag("Sphere"))
 				{
@@ -113,11 +114,15 @@ public class CameraRay : MonoBehaviour
 				//Cubes
 				else
 				{
-					Vector3 force = hit_dir * _sliderController.getSlider().value;
-					force += Vector3.up * ForceUp;
-					rb.AddForce(force, ForceMode.Impulse);
-					usabilityOn = true;
+					if (!isMoving(rb))
+					{
+						Vector3 force = hit_dir * _sliderController.getSlider().value;
+						force += Vector3.up * ForceUp;
+						rb.AddForce(force, ForceMode.Impulse);
+						usabilityOn = true;
+					}
 				}
+				
 
 			}
 
@@ -133,4 +138,16 @@ public class CameraRay : MonoBehaviour
 			usabilityOn = false;
 		}
     }
+
+    private bool isMoving(Rigidbody rb)
+    {
+	    if (rb.velocity.Equals(Vector3.zero))
+	    {
+		    // object is not moving
+		    return false;
+	    }
+	    //object is moving
+	    return true;
+    }
+    
 }

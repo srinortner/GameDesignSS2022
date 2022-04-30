@@ -12723,7 +12723,7 @@ MonoBehaviour:
   navigationSpeed: 5
   shiftMultiplier: 2
   sensitivity: 1
-  ForceUp: 3
+  ForceUp: 10
 --- !u!4 &825631976 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2769023809109943179, guid: b89f894a873795947be568859d800ddf,
