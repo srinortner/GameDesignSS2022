@@ -51,6 +51,7 @@ public class PlatformController : MonoBehaviour
     public void increaseHouseCounter()
     {
         houseCounter++;
+        print(houseCounter);
     }
 
     public void addHouse(Transform house)

@@ -7,6 +7,7 @@ using UnityEngine.Experimental.GlobalIllumination;
 public class CubiController : MonoBehaviour
 {
     public GameObject audioController;
+    private bool isHouse;
 
     private AudioManager _audioManager;
     // Start is called before the first frame update
@@ -16,6 +17,7 @@ public class CubiController : MonoBehaviour
         GetComponent<TrailRenderer>().startColor = GetComponent<Renderer>().material.color;
         GetComponent<TrailRenderer>().endColor = GetComponent<Renderer>().material.color;
         _audioManager = audioController.GetComponent<AudioManager>();
+        isHouse = false;
     }
 
     // Update is called once per frame
@@ -25,67 +27,81 @@ public class CubiController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Platform") || collision.gameObject.CompareTag("House"))
-        {
-            Vector2 direction = collision.GetContact(0).normal;
-         /*   If( direction.x == 1 ) print(“right”);
+        if (collision.gameObject.CompareTag("Platform") && !isHouse) {
+            /*   If( direction.x == 1 ) print(“right”);
             If( direction.x == -1 ) print(“left”);
             If( direction.y == 1 ) print(“up”);
             If( direction.y == -1 ) print(“down”); */
-            
+            Vector2 direction = collision.GetContact(0).normal;
             Color currentColor = GetComponent<Renderer>().material.color;
-            print("Collision Color: " + collision.gameObject.GetComponent<Renderer>().material.color + " Current Color: " + currentColor + " direction: " + direction);
+           // print("Collision Color: " + collision.gameObject.GetComponent<Renderer>().material.color + " Current Color: " + currentColor + " direction: " + direction);
+           
             if (currentColor == collision.gameObject.GetComponent<Renderer>().material.color && checkDirection(currentColor, direction))
             {
-                print("TRUE");
-                GetComponent<Rigidbody>().useGravity = true;
-                GetComponent<Rigidbody>().isKinematic = true;
-                GetComponent<Transform>().rotation = Quaternion.identity;
-                List <Transform> children = GetAllChildren(GetComponent<Transform>());
-                Light light = GetComponentInChildren<Light>();
-                _audioManager.Play("addCube");
-                foreach (var child in children)
-                {
-                    if (child.CompareTag("House"))
-                    {
-                        float change = 0.2f;
-                        float r = currentColor.r >= 0.5f ? currentColor.r - change : currentColor.r + change;
-                        float g = currentColor.g >= 0.5f ? currentColor.g - change : currentColor.g + change;
-                        float b = currentColor.b >= 0.5f ? currentColor.b - change : currentColor.b + change;
-                        Color darker = new Color(r,g,b);
-                        print(currentColor);
-                        print(darker);
-                        child.GetComponent<Renderer>().material.color = darker;
-                        child.transform.position = new Vector3(child.position.x, child.position.y - 0.01f, child.position.z);
-                        
-                    }
-                    
-                }
-
+                
+                changeCubeToHouse(currentColor);
                 PlatformController currentController = collision.gameObject.GetComponent<PlatformController>();
                 currentController.increaseHouseCounter();
                 currentController.addHouse(GetComponent<Transform>());
-                
-                if (currentController.getHouseCounter() == 3)
-                {
-                    //GetComponent<MeshRenderer>().enabled = false;
+                isHouse = true;
+                print("HERE");
+                Light light = GetComponentInChildren<Light>();          
+                if (currentController.getHouseCounter() == 3) {
                     currentController.activateHouses();
                     light.intensity = 10;
-                 /*   var lightTransform = light.transform;
-                    var lightPosition = lightTransform.position;
-                    lightPosition = new Vector3(lightPosition.x, lightPosition.y - 0.5f, lightPosition.z);
-                    lightTransform.position = lightPosition; */
-                } else if (currentController.getHouseCounter() >= 3)
-                {
+                } else if (currentController.getHouseCounter() >= 3) {
                     GetComponent<MeshRenderer>().enabled = false;
                     light.intensity = 10;
-                 /*   var lightTransform = light.transform;
-                    var lightPosition = lightTransform.position;
-                    lightPosition = new Vector3(lightPosition.x, lightPosition.y - 0.5f, lightPosition.z);
-                    lightTransform.position = lightPosition; */
                 }
+
             }
         }
+
+        else if (collision.gameObject.CompareTag("Cubi") &&
+            collision.gameObject.GetComponent<CubiController>().isCubeHouse())
+        {
+            Color currentColor = GetComponent<Renderer>().material.color;
+            if (currentColor == collision.gameObject.GetComponent<Renderer>().material.color)
+            {
+                //TODO: only on top of eachother
+                changeCubeToHouse(currentColor);
+                print("HERE");
+                isHouse = true;
+                GetComponent<MeshRenderer>().enabled = false;
+            }
+            
+            
+        }
+    }
+
+    private void changeCubeToHouse(Color currentColor)
+    {
+        GetComponent<Rigidbody>().useGravity = true;
+        GetComponent<Rigidbody>().isKinematic = true;
+                
+        GetComponent<Transform>().rotation = Quaternion.identity;
+        List <Transform> children = GetAllChildren(GetComponent<Transform>());
+       
+        _audioManager.Play("addCube");
+        foreach (var child in children)
+        {
+            if (child.CompareTag("House"))
+            {
+                float change = 0.2f;
+                float r = currentColor.r >= 0.5f ? currentColor.r - change : currentColor.r + change;
+                float g = currentColor.g >= 0.5f ? currentColor.g - change : currentColor.g + change;
+                float b = currentColor.b >= 0.5f ? currentColor.b - change : currentColor.b + change;
+                Color darker = new Color(r, g, b);
+                //    print(currentColor);
+                //    print(darker);
+                child.GetComponent<Renderer>().material.color = darker;
+                child.transform.position =
+                    new Vector3(child.position.x, child.position.y - 0.01f, child.position.z);
+
+            }
+        }
+
+
     }
     
     private bool checkDirection(Color color, Vector2 direction)
@@ -99,11 +115,11 @@ public class CubiController : MonoBehaviour
         }
         else
         {
-            print("ELSE");
-            print(direction);
+         //   print("ELSE");
+       //     print(direction);
             if (direction.y == 1f)
             {
-                print("TRUE");
+         //      print("TRUE");
                 return true;
             }
         }
@@ -120,5 +136,10 @@ public class CubiController : MonoBehaviour
             GetAllChildren(child, transformList);
         }
         return transformList;
+    }
+
+    public bool isCubeHouse()
+    {
+        return isHouse;
     }
 }

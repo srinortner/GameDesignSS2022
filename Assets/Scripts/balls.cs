@@ -57,16 +57,14 @@ public class balls : MonoBehaviour
 
     private void OnCollisionEnter(Collision other)
     {
+        
         ParticleSystem.MainModule settings = GetComponent<ParticleSystem>().main;
         ParticleSystem.MinMaxGradient particleColor = settings.startColor;
         ParticleSystem.MinMaxGradient noColor = new ParticleSystem.MinMaxGradient(Color.white);
-        print(particleColor);
-        print(noColor);
-        print(!particleColor.Equals(noColor));
         if (other.collider.tag == "Wall" && !particleColor.color.Equals(Color.white))
         {
             float cubi = Random.Range(0.0f,1.0f);
-            Debug.Log(cubi);
+       //     Debug.Log(cubi);
             Vector3 currentPosition = gameObject.transform.position;
    
             // cubiPrefab.GetComponent<Renderer>().sharedMaterial.color = c;
@@ -98,9 +96,11 @@ public class balls : MonoBehaviour
             settings.startColor = new ParticleSystem.MinMaxGradient(c);
             _particles = new ParticleSystem.Particle[settings.maxParticles]; // generate array of particles
             _amount = _particleSystem.GetParticles(_particles); // get int value of all particles
+            GetComponent<MeshRenderer>().material.color = c;
 
             this.GetComponent<Rigidbody>().AddForce(Vector3.right,ForceMode.Impulse);
             //  Debug.Log("color is set");
+            //TODO
             _count++;
             if (_count >= 6)
             {

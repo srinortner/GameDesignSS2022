@@ -43,14 +43,13 @@ GameObject:
   - component: {fileID: 4300824911946064292}
   - component: {fileID: 895830905694310436}
   - component: {fileID: 2853840784737262404}
-  - component: {fileID: 3626864837721848004}
   - component: {fileID: 168418349312148030}
   - component: {fileID: 5975234174763278003}
   - component: {fileID: 771355582843443962}
   - component: {fileID: 4083127928750417291}
   m_Layer: 0
   m_Name: cubi
-  m_TagString: Untagged
+  m_TagString: Cubi
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -119,19 +118,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &3626864837721848004
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3295388935075101572}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!96 &168418349312148030
 TrailRenderer:
   serializedVersion: 2
@@ -283,6 +269,7 @@ GameObject:
   - component: {fileID: 5879020522925562266}
   - component: {fileID: 8737358589378142416}
   - component: {fileID: 5216557572004545604}
+  - component: {fileID: 6399269394540967251}
   m_Layer: 0
   m_Name: default
   m_TagString: House
@@ -353,6 +340,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &6399269394540967251
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3395808101745265313}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2, y: 2, z: 2}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5957592267484623480
 GameObject:
   m_ObjectHideFlags: 0
@@ -362,6 +362,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6477951111590881474}
+  - component: {fileID: 3637306766609698973}
   m_Layer: 0
   m_Name: house
   m_TagString: Untagged
@@ -385,6 +386,19 @@ Transform:
   m_Father: {fileID: 2229389039199351636}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &3637306766609698973
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5957592267484623480}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2, y: 2, z: 2}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6485250773589351443
 GameObject:
   m_ObjectHideFlags: 0

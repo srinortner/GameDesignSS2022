@@ -17,7 +17,7 @@ public class SliderController : MonoBehaviour
     
     public void ForceSlider(float strength)
     {
-        Debug.Log(strength);
+    //    Debug.Log(strength);
         forceText.text = strength.ToString("0");
     }
 
