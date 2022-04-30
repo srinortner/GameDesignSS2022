@@ -13,6 +13,7 @@ TagManager:
   - StreetLight
   - Middle
   - Text
+  - AudioManager
   layers:
   - Default
   - TransparentFX
