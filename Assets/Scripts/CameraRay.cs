@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Quaternion = UnityEngine.Quaternion;
+using Vector3 = UnityEngine.Vector3;
 
 public class CameraRay : MonoBehaviour
 {
@@ -18,7 +21,6 @@ public class CameraRay : MonoBehaviour
 	private Vector3 anchorPoint;
 	private Quaternion anchorRot;
 	private Vector3 previousPos;
-	private bool usabilityOn = false;
 	private float startTime;
 	private GameObject[] spheres;
 	private GameObject text;
@@ -50,26 +52,28 @@ public class CameraRay : MonoBehaviour
 	    }
 	    //Zoom in and out with Mouse Wheel
 	    this.transform.Translate(0, 0, Input.GetAxis("Mouse ScrollWheel") * this.navigationSpeed, Space.Self);
-	    
+
+	    float xAxis = Input.GetAxis("Horizontal");
+	    float zAxis = Input.GetAxis("Vertical");
+
 	    //as long as you hold the left mouse button, you can navigate through the scene
-	    if(Input.GetMouseButton(0)) {
-		    Vector3 move = Vector3.zero;
-		    float speed = navigationSpeed * (Input.GetKey(KeyCode.LeftShift) ? shiftMultiplier : 1f) * Time.deltaTime * 9.1f;
-		    if(Input.GetKey(KeyCode.W))
-			    move += Vector3.forward * speed;
-		    if(Input.GetKey(KeyCode.S))
-			    move -= Vector3.forward * speed;
-		    if(Input.GetKey(KeyCode.D))
-			    move += Vector3.right * speed;
-		    if(Input.GetKey(KeyCode.A))
-			    move -= Vector3.right * speed;
-		    if(Input.GetKey(KeyCode.E))
-			    move += Vector3.up * speed;
-		    if(Input.GetKey(KeyCode.Q))
-			    move -= Vector3.up * speed;
-		    transform.Translate(move);
-	    }
- 
+	    Vector3 move = Vector3.zero;
+	    float speed = navigationSpeed * (Input.GetKey(KeyCode.LeftShift) ? shiftMultiplier : 1f) * Time.deltaTime * 9.1f;
+	    move += (Vector3.up * zAxis + Vector3.right * xAxis) * speed;
+	    /*if(Input.GetKey(KeyCode.W))
+		    move += Vector3.forward * speed;
+	    if(Input.GetKey(KeyCode.S))
+		    move -= Vector3.forward * speed;
+	    if(Input.GetKey(KeyCode.D))
+		    move += Vector3.right * speed;
+	    if(Input.GetKey(KeyCode.A))
+		    move -= Vector3.right * speed;
+	    if(Input.GetKey(KeyCode.E))
+		    move += Vector3.up * speed;
+	    if(Input.GetKey(KeyCode.Q))
+		    move -= Vector3.up * speed;*/
+	    transform.Translate(move);
+
 	    if(Input.GetMouseButtonDown(0)) {
 		    anchorPoint = new Vector3(Input.mousePosition.y, -Input.mousePosition.x);
 		    anchorRot = transform.rotation;
@@ -103,39 +107,26 @@ public class CameraRay : MonoBehaviour
 				Vector3 hit_dir = new Vector3(dir.x, 0f, dir.z).normalized;
 				
 				//Spheres
-				if (rb.CompareTag("Sphere"))
+				if (rb.CompareTag("Sphere")) //&& !isMovingSphere(rb) <-- for checking if sphere is moving, does not work as I want to...
 				{
 					Vector3 force = hit_dir * _sliderController.getSlider().value;
 					force += Vector3.up * ForceUp;
 					Debug.DrawRay(rb.position, force, Color.black, 3f); //activate gizmo in game view to see ray
 					rb.AddForce(force, ForceMode.Impulse); //needs a bit tinkering 
+					//Debug.Log("Velocity vector: " + rb.velocity);
 					Vector3 middle = new Vector3();
-					usabilityOn = true;
 				}
 				//Cubes
-				else if (rb.CompareTag("Cubi"))
+				else if (rb.CompareTag("Cubi") && !isMoving(rb))
 				{
-					if (!isMoving(rb))
-					{
-						Vector3 force = hit_dir * _sliderController.getSlider().value;
-						force += Vector3.up * ForceUp;
-						Debug.DrawRay(rb.position, force, Color.grey, 3f);
-						rb.AddForce(force, ForceMode.Impulse);
-						usabilityOn = true;
-					}
+					Vector3 force = hit_dir * _sliderController.getSlider().value;
+					force += Vector3.up * ForceUp;
+					Debug.DrawRay(rb.position, force, Color.grey, 3f);
+					rb.AddForce(force, ForceMode.Impulse);
 				}
 			}
 
 			previousPos = hit.point; //mouse position in 3D
-			/* TODO implement timer that actually counts argh and change color with colorList over time
-			if (usabilityOn == false)
-			{
-				foreach (var sphere in spheres)
-				{
-					sphere.GetComponent<Renderer>().material.SetColor("_Color", Color.black);
-				}
-			}*/
-			usabilityOn = false;
 		}
     }
 
@@ -149,5 +140,14 @@ public class CameraRay : MonoBehaviour
 	    //object is moving
 	    return true;
     }
-    
+
+    private bool isMovingSphere(Rigidbody rb)
+    {
+	    //0.3f is middle force
+	    if ((rb.velocity.z <= 0.4f && rb.velocity.z >= -0.4f) || (rb.velocity.x <= 1f && rb.velocity.x >= -1f))
+	    {
+		    return false;
+	    }
+	    return true;
+    }
 }
