@@ -8,6 +8,8 @@ public class CubiController : MonoBehaviour
 {
     public GameObject audioController;
     private bool isHouse;
+    private bool isGroundFloor;
+    private bool isHighestFloor;
 
     private AudioManager _audioManager;
     // Start is called before the first frame update
@@ -18,6 +20,7 @@ public class CubiController : MonoBehaviour
         GetComponent<TrailRenderer>().endColor = GetComponent<Renderer>().material.color;
         _audioManager = audioController.GetComponent<AudioManager>();
         isHouse = false;
+        isGroundFloor = false;
     }
 
     // Update is called once per frame
@@ -44,7 +47,8 @@ public class CubiController : MonoBehaviour
                 currentController.increaseHouseCounter();
                 currentController.addHouse(GetComponent<Transform>());
                 isHouse = true;
-                print("HERE");
+                isGroundFloor = true;
+                isHighestFloor = true;
                 Light light = GetComponentInChildren<Light>();          
                 if (currentController.getHouseCounter() == 3) {
                     currentController.activateHouses();
@@ -57,20 +61,30 @@ public class CubiController : MonoBehaviour
             }
         }
 
-        else if (collision.gameObject.CompareTag("Cubi") &&
-            collision.gameObject.GetComponent<CubiController>().isCubeHouse())
+        else
         {
-            Color currentColor = GetComponent<Renderer>().material.color;
-            if (currentColor == collision.gameObject.GetComponent<Renderer>().material.color)
+            CubiController cubiController = collision.gameObject.GetComponent<CubiController>();
+            if (collision.gameObject.CompareTag("Cubi") &&
+                cubiController.isCubeHouse() && !isGroundFloor && cubiController.isCubeHighestFloor())
             {
-                //TODO: only on top of eachother
-                changeCubeToHouse(currentColor);
-                print("HERE");
-                isHouse = true;
-                GetComponent<MeshRenderer>().enabled = false;
+                Color currentColor = GetComponent<Renderer>().material.color;
+                if (currentColor == collision.gameObject.GetComponent<Renderer>().material.color)
+                {
+                    //TODO: only on top of eachother
+                    changeCubeToHouse(currentColor);
+                    print("HERE");
+                    GetComponent<MeshRenderer>().enabled = false;
+                    var collidingPos = collision.gameObject.transform.position;
+                    var collidingScale = collision.gameObject.transform.localScale;
+                    transform.position = new Vector3(collidingPos.x,collidingPos.y + collidingScale.y, collidingPos.z);
+                    isHouse = true;
+                    isGroundFloor = true;
+                    isHighestFloor = true;
+                    cubiController.SetIsHighestFloor(false);
+                }
+            
+            
             }
-            
-            
         }
     }
 
@@ -141,5 +155,20 @@ public class CubiController : MonoBehaviour
     public bool isCubeHouse()
     {
         return isHouse;
+    }
+
+    public bool isCubeGroundFloor()
+    {
+        return isGroundFloor;
+    }
+
+    public void SetIsHighestFloor(bool value)
+    {
+        isHighestFloor = value;
+    }
+
+    public bool isCubeHighestFloor()
+    {
+        return isHighestFloor;
     }
 }
