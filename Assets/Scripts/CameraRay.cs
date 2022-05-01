@@ -10,8 +10,6 @@ using Vector3 = UnityEngine.Vector3;
 
 public class CameraRay : MonoBehaviour
 {
-	private bool movementLeft = true;
-	
 	[SerializeField] float navigationSpeed = 2.4f;
 	[SerializeField] float shiftMultiplier = 2f;
 	[SerializeField] float sensitivity = 1.0f;
@@ -114,7 +112,7 @@ public class CameraRay : MonoBehaviour
 					Debug.DrawRay(rb.position, force, Color.black, 3f); //activate gizmo in game view to see ray
 					rb.AddForce(force, ForceMode.Impulse); //needs a bit tinkering 
 					//Debug.Log("Velocity vector: " + rb.velocity);
-					Vector3 middle = new Vector3();
+					//Vector3 middle = new Vector3();
 				}
 				//Cubes
 				else if (rb.CompareTag("Cubi") && !isMoving(rb))
