@@ -13,7 +13,7 @@ public class CameraRay : MonoBehaviour
 	[SerializeField] float navigationSpeed = 2.4f;
 	[SerializeField] float shiftMultiplier = 2f;
 	[SerializeField] float sensitivity = 1.0f;
- 
+
 	private Camera cam;
 	public float ForceUp;
 	private Vector3 anchorPoint;
@@ -24,69 +24,92 @@ public class CameraRay : MonoBehaviour
 	private GameObject text;
 	private List<Color> colorList;
 	private SliderController _sliderController;
+	private bool outOfBounds;
 
-	private void Awake () {
+
+
+	private void Awake()
+	{
 		cam = GetComponent<Camera>();
 	}
-    // Start is called before the first frame update
-    void Start()
-    {
-	    previousPos = new Vector3();
-	    spheres = GameObject.FindGameObjectsWithTag("Sphere");
-	    text = GameObject.FindGameObjectWithTag("Text");
-	    colorList = new List<Color>(){Color.magenta, Color.blue, Color.cyan, Color.black};
-	    _sliderController = GameObject.FindObjectOfType<SliderController>();
-    }
 
-    private void Update()
-    {
-	    if (text != null)
-	    {
-		    //GetMouseButton(0) = Left Mouse Button
-		    if (text.activeInHierarchy && Input.GetMouseButton(0))
-		    {
-			    text.SetActive(false);
-		    }
-	    }
-	    //Zoom in and out with Mouse Wheel
-	    this.transform.Translate(0, 0, Input.GetAxis("Mouse ScrollWheel") * this.navigationSpeed, Space.Self);
+	// Start is called before the first frame update
+	void Start()
+	{
+		previousPos = new Vector3();
+		spheres = GameObject.FindGameObjectsWithTag("Sphere");
+		text = GameObject.FindGameObjectWithTag("Text");
+		colorList = new List<Color>() {Color.magenta, Color.blue, Color.cyan, Color.black};
+		_sliderController = GameObject.FindObjectOfType<SliderController>();
+		outOfBounds = false;
+	}
 
-	    float xAxis = Input.GetAxis("Horizontal");
-	    float zAxis = Input.GetAxis("Vertical");
+	private void Update()
+	{
+		float xMin = -24.0f;
+		float xMax = 24.0f;
+		float yMin = 1.0f;
+		float yMax = 17.0f;
+		float zMin = -41f;
+		float zMax = 23.7f;
 
-	    //as long as you hold the left mouse button, you can navigate through the scene
-	    Vector3 move = Vector3.zero;
-	    float speed = navigationSpeed * (Input.GetKey(KeyCode.LeftShift) ? shiftMultiplier : 1f) * Time.deltaTime * 9.1f;
-	    move += (Vector3.up * zAxis + Vector3.right * xAxis) * speed;
-	    /*if(Input.GetKey(KeyCode.W))
-		    move += Vector3.forward * speed;
-	    if(Input.GetKey(KeyCode.S))
-		    move -= Vector3.forward * speed;
-	    if(Input.GetKey(KeyCode.D))
-		    move += Vector3.right * speed;
-	    if(Input.GetKey(KeyCode.A))
-		    move -= Vector3.right * speed;
-	    if(Input.GetKey(KeyCode.E))
-		    move += Vector3.up * speed;
-	    if(Input.GetKey(KeyCode.Q))
-		    move -= Vector3.up * speed;*/
-	    transform.Translate(move);
+		if (text != null)
+		{
+			//GetMouseButton(0) = Left Mouse Button
+			if (text.activeInHierarchy && Input.GetMouseButton(0))
+			{
+				text.SetActive(false);
+			}
+		}
 
-	    if(Input.GetMouseButtonDown(0)) {
-		    anchorPoint = new Vector3(Input.mousePosition.y, -Input.mousePosition.x);
-		    anchorRot = transform.rotation;
-	    }
-	    if(Input.GetMouseButton(0)) {
-		    Quaternion rot = anchorRot;
- 
-		    Vector3 dif = anchorPoint - new Vector3(Input.mousePosition.y, -Input.mousePosition.x);
-		    rot.eulerAngles += dif * sensitivity;
-		    transform.rotation = rot;
-	    }
-	    //Debug.Log(spheres[0]);
-    }
 
-    // Update is called once per frame
+		//Zoom in and out with Mouse Wheel
+		this.transform.Translate(0, 0, Input.GetAxis("Mouse ScrollWheel") * this.navigationSpeed, Space.Self);
+
+		float xAxis = Input.GetAxis("Horizontal");
+		float zAxis = Input.GetAxis("Vertical");
+
+		//as long as you hold the left mouse button, you can navigate through the scene
+		Vector3 move = Vector3.zero;
+		float speed = navigationSpeed * (Input.GetKey(KeyCode.LeftShift) ? shiftMultiplier : 1f) * Time.deltaTime *
+		              9.1f;
+		move += (Vector3.up * zAxis + Vector3.right * xAxis) * speed;
+		/*if(Input.GetKey(KeyCode.W))
+			move += Vector3.forward * speed;
+		if(Input.GetKey(KeyCode.S))
+			move -= Vector3.forward * speed;
+		if(Input.GetKey(KeyCode.D))
+			move += Vector3.right * speed;
+		if(Input.GetKey(KeyCode.A))
+			move -= Vector3.right * speed;
+		if(Input.GetKey(KeyCode.E))
+			move += Vector3.up * speed;
+		if(Input.GetKey(KeyCode.Q))
+			move -= Vector3.up * speed;*/
+		transform.Translate(move);
+		transform.position = new Vector3(
+			Mathf.Clamp(transform.position.x, xMin, xMax),
+			Mathf.Clamp(transform.position.y, yMin, yMax),
+			Mathf.Clamp(transform.position.z, zMin, zMax));
+
+		if (Input.GetMouseButtonDown(0))
+		{
+			anchorPoint = new Vector3(Input.mousePosition.y, -Input.mousePosition.x);
+			anchorRot = transform.rotation;
+		}
+
+		if (Input.GetMouseButton(0))
+		{
+			Quaternion rot = anchorRot;
+
+			Vector3 dif = anchorPoint - new Vector3(Input.mousePosition.y, -Input.mousePosition.x);
+			rot.eulerAngles += dif * sensitivity;
+			transform.rotation = rot;
+		}
+	}
+	
+
+	// Update is called once per frame
     void FixedUpdate()
     {
 	    RaycastHit hit;
@@ -148,4 +171,5 @@ public class CameraRay : MonoBehaviour
 	    }
 	    return true;
     }
+
 }

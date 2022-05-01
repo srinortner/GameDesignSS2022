@@ -15,6 +15,7 @@ TagManager:
   - Text
   - AudioManager
   - Cubi
+  - Floor
   layers:
   - Default
   - TransparentFX
