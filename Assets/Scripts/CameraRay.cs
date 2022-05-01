@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Numerics;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using Quaternion = UnityEngine.Quaternion;
 using Vector3 = UnityEngine.Vector3;
@@ -94,12 +95,22 @@ public class CameraRay : MonoBehaviour
 
 		if (Input.GetMouseButtonDown(0))
 		{
+			if (EventSystem.current.IsPointerOverGameObject())
+			{
+				//if mouse is clicked but is currently over the slider, we do not want to move the camera :)
+				return;
+			}
 			anchorPoint = new Vector3(Input.mousePosition.y, -Input.mousePosition.x);
 			anchorRot = transform.rotation;
 		}
 
 		if (Input.GetMouseButton(0))
 		{
+			if (EventSystem.current.IsPointerOverGameObject())
+			{
+				//if mouse is clicked but is currently over the slider, we do not want to move the camera :)
+				return;
+			}
 			Quaternion rot = anchorRot;
 
 			Vector3 dif = anchorPoint - new Vector3(Input.mousePosition.y, -Input.mousePosition.x);
