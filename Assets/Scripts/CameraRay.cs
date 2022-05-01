@@ -152,7 +152,7 @@ public class CameraRay : MonoBehaviour
 				else if (rb.CompareTag("Cubi") && !isMoving(rb))
 				{
 					Vector3 force = hit_dir * _sliderController.getSlider().value;
-					force += Vector3.up * ForceUp;
+					force += Vector3.up * ForceUp * 2f;
 					Debug.DrawRay(rb.position, force, Color.grey, 3f);
 					rb.AddForce(force, ForceMode.Impulse);
 				}
