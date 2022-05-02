@@ -37,7 +37,6 @@ public class CubiController : MonoBehaviour
             If( direction.y == -1 ) print(“down”); */
             Vector2 direction = collision.GetContact(0).normal;
             Color currentColor = GetComponent<Renderer>().material.color;
-           // print("Collision Color: " + collision.gameObject.GetComponent<Renderer>().material.color + " Current Color: " + currentColor + " direction: " + direction);
            
             if (currentColor == collision.gameObject.GetComponent<Renderer>().material.color && checkDirection(currentColor, direction))
             {
@@ -70,13 +69,19 @@ public class CubiController : MonoBehaviour
                 Color currentColor = GetComponent<Renderer>().material.color;
                 if (currentColor == collision.gameObject.GetComponent<Renderer>().material.color)
                 {
-                    //TODO: only on top of eachother
                     changeCubeToHouse(currentColor);
-                    print("HERE");
                     GetComponent<MeshRenderer>().enabled = false;
                     var collidingPos = collision.gameObject.transform.position;
                     var collidingScale = collision.gameObject.transform.localScale;
-                    transform.position = new Vector3(collidingPos.x,collidingPos.y + collidingScale.y, collidingPos.z);
+                    if (currentColor == Color.red || currentColor == Color.cyan)
+                    {
+                        transform.position = new Vector3(collidingPos.x-collidingScale.y,collidingPos.y, collidingPos.z);
+                    }
+                    else
+                    {
+                        transform.position = new Vector3(collidingPos.x,collidingPos.y + collidingScale.y, collidingPos.z);
+                    }
+                    
                     isHouse = true;
                     isGroundFloor = true;
                     isHighestFloor = true;
