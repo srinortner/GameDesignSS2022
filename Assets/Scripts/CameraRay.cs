@@ -26,8 +26,10 @@ public class CameraRay : MonoBehaviour
 	private List<Color> colorList;
 	private SliderController _sliderController;
 	private bool outOfBounds;
-
-
+	private GameObject _audioController;
+	private AudioManager _audioManager;
+	private bool musicOn = true;
+	private string backgroundMusic = "BaseMusic";
 
 	private void Awake()
 	{
@@ -43,6 +45,9 @@ public class CameraRay : MonoBehaviour
 		colorList = new List<Color>() {Color.magenta, Color.blue, Color.cyan, Color.black};
 		_sliderController = GameObject.FindObjectOfType<SliderController>();
 		outOfBounds = false;
+		_audioController = GameObject.FindWithTag("AudioManager");
+		_audioManager = _audioController.GetComponent<AudioManager>();
+		_audioManager.Play(backgroundMusic);
 	}
 
 	private void Update()
@@ -54,13 +59,9 @@ public class CameraRay : MonoBehaviour
 		float zMin = -41f;
 		float zMax = 23.7f;
 
-		if (text != null)
+		if (Input.GetKey(KeyCode.Q))
 		{
-			//GetMouseButton(0) = Left Mouse Button
-			if (text.activeInHierarchy && Input.GetMouseButton(0))
-			{
-				text.SetActive(false);
-			}
+			_audioManager.MusicToggle(backgroundMusic);
 		}
 
 
