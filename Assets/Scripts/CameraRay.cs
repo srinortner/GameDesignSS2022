@@ -142,7 +142,7 @@ public class CameraRay : MonoBehaviour
 				//Spheres
 				if (rb.CompareTag("Sphere")) //&& !isMovingSphere(rb) <-- for checking if sphere is moving, does not work as I want to...
 				{
-					Vector3 force = hit_dir * _sliderController.getSlider().value;
+					Vector3 force = hit_dir * _sliderController.getSliderStrength().value;
 					force += Vector3.up * ForceUp;
 					Debug.DrawRay(rb.position, force, Color.black, 3f); //activate gizmo in game view to see ray
 					rb.AddForce(force, ForceMode.Impulse); //needs a bit tinkering 
@@ -152,8 +152,8 @@ public class CameraRay : MonoBehaviour
 				//Cubes
 				else if (rb.CompareTag("Cubi") && !isMoving(rb))
 				{
-					Vector3 force = hit_dir * _sliderController.getSlider().value;
-					force += Vector3.up * ForceUp * 2f;
+					Vector3 force = hit_dir * _sliderController.getSliderStrength().value;
+					force += Vector3.up * (ForceUp + _sliderController.getForceUp().value);
 					Debug.DrawRay(rb.position, force, Color.grey, 3f);
 					rb.AddForce(force, ForceMode.Impulse);
 				}
