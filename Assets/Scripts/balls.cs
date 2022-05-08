@@ -13,12 +13,6 @@ public class balls : MonoBehaviour
     private int _count;
     private ParticleSystem.Particle[] _particles;
     public GameObject cubiPrefab;
-    public Transform platformYellow;
-    public Transform platformRed;
-    public Transform platformBlue;
-    public Transform platformMagenta;
-    public Transform platformCyan;
-    public Transform platformGreen;
     public Transform middle;
     private Vector3 startPosition;
     public GameObject audioController;
@@ -182,4 +176,5 @@ public class balls : MonoBehaviour
         return colors[count];
 
     }
+    
 }

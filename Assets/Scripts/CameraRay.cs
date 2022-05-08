@@ -16,7 +16,15 @@ public class CameraRay : MonoBehaviour
 	[SerializeField] float sensitivity = 1.0f;
 
 	private Camera cam;
+	
 	public float ForceUp;
+	public Transform platformYellow;
+	public Transform platformRed;
+	public Transform platformBlue;
+	public Transform platformMagenta;
+	public Transform platformCyan;
+	public Transform platformGreen;
+	
 	private Vector3 anchorPoint;
 	private Quaternion anchorRot;
 	private Vector3 previousPos;
@@ -76,18 +84,6 @@ public class CameraRay : MonoBehaviour
 		float speed = navigationSpeed * (Input.GetKey(KeyCode.LeftShift) ? shiftMultiplier : 1f) * Time.deltaTime *
 		              9.1f;
 		move += (Vector3.up * zAxis + Vector3.right * xAxis) * speed;
-		/*if(Input.GetKey(KeyCode.W))
-			move += Vector3.forward * speed;
-		if(Input.GetKey(KeyCode.S))
-			move -= Vector3.forward * speed;
-		if(Input.GetKey(KeyCode.D))
-			move += Vector3.right * speed;
-		if(Input.GetKey(KeyCode.A))
-			move -= Vector3.right * speed;
-		if(Input.GetKey(KeyCode.E))
-			move += Vector3.up * speed;
-		if(Input.GetKey(KeyCode.Q))
-			move -= Vector3.up * speed;*/
 		transform.Translate(move);
 		transform.position = new Vector3(
 			Mathf.Clamp(transform.position.x, xMin, xMax),
@@ -152,9 +148,12 @@ public class CameraRay : MonoBehaviour
 				//Cubes
 				else if (rb.CompareTag("Cubi") && !isMoving(rb))
 				{
-					Vector3 force = hit_dir * _sliderController.getSliderStrength().value;
+					Transform forceGoal = getCorrectLocation(rb);
+					Vector3 target = forceGoal.position;
+					Vector3 force = (hit_dir) * _sliderController.getSliderStrength().value; //
 					force += Vector3.up * (ForceUp + _sliderController.getForceUp().value);
 					Debug.DrawRay(rb.position, force, Color.grey, 3f);
+					rb.AddForce((target - rb.position), ForceMode.Force);
 					rb.AddForce(force, ForceMode.Impulse);
 				}
 			}
@@ -182,6 +181,36 @@ public class CameraRay : MonoBehaviour
 		    return false;
 	    }
 	    return true;
+    }
+
+    private Transform getCorrectLocation(Rigidbody rb)
+    {
+	    Color c = rb.gameObject.GetComponent<Renderer>().material.color;
+	    
+	    switch (c.ToString())
+	    {
+		    case "RGBA(1.000, 0.000, 1.000, 1.000)":
+			    Debug.Log("Magenta: "+ platformMagenta.position.ToString());
+			    return platformMagenta;
+		    case "RGBA(1.000, 0.000, 0.000, 1.000)":
+			    Debug.Log("Red: "+ platformRed.position.ToString());
+			    return platformRed;
+		    case "RGBA(0.000, 0.000, 1.000, 1.000)":
+			    Debug.Log("Blue: "+ platformBlue.position.ToString());
+			    return platformBlue;
+		    case "RGBA(0.000, 1.000, 1.000, 1.000)":
+			    Debug.Log("Cyan: "+ platformCyan.position.ToString());
+			    return platformCyan;
+		    case "RGBA(0.000, 1.000, 0.000, 1.000)":
+			    Debug.Log("Green: "+ platformGreen.position.ToString());
+			    return platformGreen;
+		    case "RGBA(1.000, 0.920, 0.0160, 1.000),":
+			    Debug.Log("Yellow: "+ platformYellow.position.ToString());
+			    return platformYellow;
+		    default:
+			    Debug.Log("hmm something went wrong...");
+			    return platformMagenta;
+	    }
     }
 
 }

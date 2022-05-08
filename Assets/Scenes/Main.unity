@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.63621557, g: 0.7016587, b: 0.78728163, a: 1}
+  m_IndirectSpecularColor: {r: 0.67932403, g: 0.73286986, b: 0.8046716, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -6398,12 +6398,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cubiPrefab: {fileID: 3295388935075101572, guid: fe9577d6ff6a3544392bd6f4f2b68aab,
     type: 3}
-  platformYellow: {fileID: 1755767243}
-  platformRed: {fileID: 8472661}
-  platformBlue: {fileID: 1205506045}
-  platformMagenta: {fileID: 493014598}
-  platformCyan: {fileID: 497656445}
-  platformGreen: {fileID: 36867944}
   middle: {fileID: 381328365}
   audioController: {fileID: 874497624}
 --- !u!54 &391854239
@@ -7520,12 +7514,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cubiPrefab: {fileID: 3295388935075101572, guid: fe9577d6ff6a3544392bd6f4f2b68aab,
     type: 3}
-  platformYellow: {fileID: 1755767243}
-  platformRed: {fileID: 8472661}
-  platformBlue: {fileID: 1205506045}
-  platformMagenta: {fileID: 493014598}
-  platformCyan: {fileID: 497656445}
-  platformGreen: {fileID: 36867944}
   middle: {fileID: 381328365}
   audioController: {fileID: 874497624}
 --- !u!199 &707344882
@@ -12775,6 +12763,12 @@ MonoBehaviour:
   shiftMultiplier: 1
   sensitivity: 1
   ForceUp: 2
+  platformYellow: {fileID: 2063074630}
+  platformRed: {fileID: 769421826}
+  platformBlue: {fileID: 34578090}
+  platformMagenta: {fileID: 1330182486}
+  platformCyan: {fileID: 660525545}
+  platformGreen: {fileID: 259967014}
 --- !u!135 &798498201
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -13508,12 +13502,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cubiPrefab: {fileID: 3295388935075101572, guid: fe9577d6ff6a3544392bd6f4f2b68aab,
     type: 3}
-  platformYellow: {fileID: 1755767243}
-  platformRed: {fileID: 8472661}
-  platformBlue: {fileID: 1205506045}
-  platformMagenta: {fileID: 493014598}
-  platformCyan: {fileID: 497656445}
-  platformGreen: {fileID: 36867944}
   middle: {fileID: 381328365}
   audioController: {fileID: 874497624}
 --- !u!199 &1022911398
@@ -18534,12 +18522,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cubiPrefab: {fileID: 3295388935075101572, guid: fe9577d6ff6a3544392bd6f4f2b68aab,
     type: 3}
-  platformYellow: {fileID: 1755767243}
-  platformRed: {fileID: 8472661}
-  platformBlue: {fileID: 1205506045}
-  platformMagenta: {fileID: 493014598}
-  platformCyan: {fileID: 497656445}
-  platformGreen: {fileID: 36867944}
   middle: {fileID: 381328365}
   audioController: {fileID: 874497624}
 --- !u!199 &1079743171
