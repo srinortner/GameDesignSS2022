@@ -16,6 +16,7 @@ TagManager:
   - AudioManager
   - Cubi
   - Floor
+  - Magnet
   layers:
   - Default
   - TransparentFX

@@ -10,6 +10,7 @@ public class CubiController : MonoBehaviour
     private bool isHouse;
     private bool isGroundFloor;
     private bool isHighestFloor;
+    private bool isMagnetic;
 
     private AudioManager _audioManager;
     // Start is called before the first frame update
@@ -21,6 +22,7 @@ public class CubiController : MonoBehaviour
         _audioManager = audioController.GetComponent<AudioManager>();
         isHouse = false;
         isGroundFloor = false;
+        isMagnetic = false;
     }
 
     // Update is called once per frame
@@ -91,6 +93,16 @@ public class CubiController : MonoBehaviour
             
             }
         }
+
+        if (collision.gameObject.CompareTag("Magnet"))
+        {
+            isMagnetic = true;
+        }
+    }
+
+    public bool isInMagneticField()
+    {
+        return isMagnetic;
     }
 
     private void changeCubeToHouse(Color currentColor)
