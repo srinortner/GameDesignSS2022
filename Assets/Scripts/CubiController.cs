@@ -30,6 +30,14 @@ public class CubiController : MonoBehaviour
     {
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Magnet"))
+        {
+            isMagnetic = true;
+        }
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Platform") && !isHouse) {
@@ -93,11 +101,7 @@ public class CubiController : MonoBehaviour
             
             }
         }
-
-        if (collision.gameObject.CompareTag("Magnet"))
-        {
-            isMagnetic = true;
-        }
+        
     }
 
     public bool isInMagneticField()

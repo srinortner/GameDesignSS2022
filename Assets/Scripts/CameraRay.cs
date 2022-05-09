@@ -149,11 +149,21 @@ public class CameraRay : MonoBehaviour
 				else if (rb.CompareTag("Cubi") && !isMoving(rb))
 				{
 					Transform forceGoal = getCorrectLocation(rb);
+					float magneticPower = 0f;
+					
+					if (rb.gameObject.GetComponent<CubiController>().isInMagneticField())
+					{
+						//platform is in range
+
+						magneticPower = 5f;
+					} //MoveTowards also maybe
+					
 					Vector3 target = forceGoal.position;
 					Vector3 force = (hit_dir) * _sliderController.getSliderStrength().value; //
-					force += Vector3.up * (ForceUp + _sliderController.getForceUp().value);
-					Debug.DrawRay(rb.position, force, Color.grey, 3f);
-					rb.AddForce((target - rb.position), ForceMode.Force);
+					force += Vector3.up * (ForceUp + _sliderController.getForceUp().value + magneticPower);
+					//float distance = Vector3.Distance(rb.position.normalized, target.normalized);
+					Debug.DrawRay(rb.position, target, Color.grey, 3f);
+					//rb.AddForceAtPosition(rb.position * distance, rb.position);
 					rb.AddForce(force, ForceMode.Impulse);
 				}
 			}
