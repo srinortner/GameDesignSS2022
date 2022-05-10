@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.67932403, g: 0.73286986, b: 0.8046716, a: 1}
+  m_IndirectSpecularColor: {r: 0.63621557, g: 0.7016587, b: 0.78728163, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1051,7 +1051,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 493014598}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &191118606
 BoxCollider:
@@ -1064,8 +1064,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.5, y: 2, z: 1.5}
-  m_Center: {x: 0, y: 1, z: 0}
+  m_Size: {x: 1.5, y: 5, z: 1.5}
+  m_Center: {x: 0, y: 2.5, z: 0}
 --- !u!1 &191393297
 GameObject:
   m_ObjectHideFlags: 0
@@ -1413,7 +1413,7 @@ Transform:
   - {fileID: 178731714}
   - {fileID: 2044041009}
   m_Father: {fileID: 493014598}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &375727875
 GameObject:
@@ -6703,6 +6703,7 @@ GameObject:
   - component: {fileID: 493014596}
   - component: {fileID: 493014595}
   - component: {fileID: 493014599}
+  - component: {fileID: 493014600}
   m_Layer: 0
   m_Name: Platform Pink
   m_TagString: Platform
@@ -6783,8 +6784,8 @@ Transform:
   m_LocalPosition: {x: -1.1730423, y: 44.64192, z: -66.51009}
   m_LocalScale: {x: 4, y: 0.5, z: 4}
   m_Children:
-  - {fileID: 337785860}
   - {fileID: 191118605}
+  - {fileID: 337785860}
   m_Father: {fileID: 1330182486}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6800,6 +6801,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b8428506a979cd4d88f8f50d3bc9051, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!54 &493014600
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 493014594}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &497656441
 GameObject:
   m_ObjectHideFlags: 0

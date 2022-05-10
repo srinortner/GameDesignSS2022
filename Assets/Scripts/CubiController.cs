@@ -11,6 +11,11 @@ public class CubiController : MonoBehaviour
     private bool isGroundFloor;
     private bool isHighestFloor;
     private bool isMagnetic;
+    public float speed;
+    private Transform target;
+    private Transform cubi;
+    private Rigidbody _rigidbody;
+    private bool isColliding;
 
     private AudioManager _audioManager;
     // Start is called before the first frame update
@@ -19,15 +24,35 @@ public class CubiController : MonoBehaviour
         audioController = GameObject.FindWithTag("AudioManager");
         GetComponent<TrailRenderer>().startColor = GetComponent<Renderer>().material.color;
         GetComponent<TrailRenderer>().endColor = GetComponent<Renderer>().material.color;
+        _rigidbody = GetComponent<Rigidbody>();
         _audioManager = audioController.GetComponent<AudioManager>();
         isHouse = false;
         isGroundFloor = false;
         isMagnetic = false;
+        target = null;
+        isColliding = false;
     }
 
     // Update is called once per frame
     void Update()
     {
+        //TODO: alles hier drinnen auskommentieren wenn moveTowards weg soll
+      //  print(isMagnetic);
+        if (isMagnetic && !isColliding)
+        {
+            Vector3 platform = new Vector3(target.position.x + target.localScale.x,
+                target.position.y + target.localScale.y, target.position.z + target.localScale.z);
+            var step =  speed * Time.deltaTime; // calculate distance to move
+            var targetVec= new Vector3(target.position.x,target.position.y + transform.localScale.z, target.position.z);
+               var targetPos = Vector3.MoveTowards(transform.position, targetVec, step);
+            _rigidbody.MovePosition(targetPos);
+        }
+        
+//        transform.position = Vector3.MoveTowards(transform.position, target.position, step);
+         //   print(transform.position);
+         //   print(target.position);
+         //   print(step);
+     //   print(target.position);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -35,12 +60,25 @@ public class CubiController : MonoBehaviour
         if (other.gameObject.CompareTag("Magnet"))
         {
             isMagnetic = true;
+            _rigidbody.isKinematic = true; 
+            target = other.gameObject.transform.parent.gameObject.transform;
+         //   print(target.name + " " + target.GetType());
+       //  print(other.gameObject.name);
+        // print(other.gameObject.transform.parent);
+            print(transform.GetInstanceID() +" is Magnetic");
         }
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Platform") && !isHouse) {
+        if (collision.gameObject.CompareTag("Platform"))
+        {
+            isColliding = true;
+            print(transform.GetInstanceID() +" FALSE");
+        }
+        if (collision.gameObject.CompareTag("Platform") && !isHouse)
+        {
+            
             /*   If( direction.x == 1 ) print(“right”);
             If( direction.x == -1 ) print(“left”);
             If( direction.y == 1 ) print(“up”);

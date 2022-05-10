@@ -128,7 +128,7 @@ public class balls : MonoBehaviour
             GameObject cubi1 = Instantiate(cubiPrefab, new Vector3(currentPosition.x, currentPosition.y + 10f, currentPosition.z + 0), Quaternion.identity); 
             cubi1.GetComponent<Renderer>().material.color = c;
             cubi1.GetComponent<CubiController>().audioController = audioController;
-            GameObject cubi2 = Instantiate(cubiPrefab, new Vector3(currentPosition.x + 3, currentPosition.y + 10f, currentPosition.z - 3), Quaternion.identity);
+       /*     GameObject cubi2 = Instantiate(cubiPrefab, new Vector3(currentPosition.x + 3, currentPosition.y + 10f, currentPosition.z - 3), Quaternion.identity);
             cubi2.GetComponent<Renderer>().material.color = c;
             cubi2.GetComponent<CubiController>().audioController = audioController;
             GameObject cubi3 = Instantiate(cubiPrefab, new Vector3(currentPosition.x + 1, currentPosition.y + 10f, currentPosition.z + 3), Quaternion.identity);
@@ -139,7 +139,7 @@ public class balls : MonoBehaviour
             cubi4.GetComponent<CubiController>().audioController = audioController;
             GameObject cubi5 = Instantiate(cubiPrefab, new Vector3(currentPosition.x, currentPosition.y + 10f, currentPosition.z + 3), Quaternion.identity);
             cubi5.GetComponent<Renderer>().material.color = c;
-            cubi5.GetComponent<CubiController>().audioController = audioController;
+            cubi5.GetComponent<CubiController>().audioController = audioController;*/
         }
         else
         {
@@ -147,7 +147,7 @@ public class balls : MonoBehaviour
                 Quaternion.identity);
             cubi1.GetComponent<Renderer>().material.color = c;
             cubi1.GetComponent<CubiController>().audioController = audioController;
-            GameObject cubi2 = Instantiate(cubiPrefab, new Vector3(list[1].x, list[1].y + 1, list[1].z + 0),
+         /*   GameObject cubi2 = Instantiate(cubiPrefab, new Vector3(list[1].x, list[1].y + 1, list[1].z + 0),
                 Quaternion.identity);
             cubi2.GetComponent<Renderer>().material.color = c;
             cubi2.GetComponent<CubiController>().audioController = audioController;
@@ -162,7 +162,7 @@ public class balls : MonoBehaviour
             GameObject cubi5 = Instantiate(cubiPrefab, new Vector3(list[4].x, list[4].y + 1, list[4].z + 0),
                 Quaternion.identity);
             cubi5.GetComponent<Renderer>().material.color = c;
-            cubi5.GetComponent<CubiController>().audioController = audioController;
+            cubi5.GetComponent<CubiController>().audioController = audioController;*/
         }
 
     }
