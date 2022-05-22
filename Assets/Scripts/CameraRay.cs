@@ -134,12 +134,21 @@ public class CameraRay : MonoBehaviour
 				//norm direction = norm(destination - source)
 				Vector3 dir = rb.transform.position - hit.point;
 				Vector3 hit_dir = new Vector3(dir.x, 0f, dir.z).normalized;
+				float forceForward = 0;
 				
 				//Spheres
 				if (rb.CompareTag("Sphere")) //&& !isMovingSphere(rb) <-- for checking if sphere is moving, does not work as I want to...
 				{
+					rb.GetComponent<GameObject>();
+					if (hitOnTop(hit) && hit_dir.z > 0)
+					{
+						//hit_dir.z *= -1f;
+						forceForward = 5f;
+
+					}
 					Vector3 force = hit_dir * _sliderController.getSliderStrength().value;
 					force += Vector3.up * ForceUp;
+					force += Vector3.back * forceForward;
 					Debug.DrawRay(rb.position, force, Color.black, 3f); //activate gizmo in game view to see ray
 					rb.AddForce(force, ForceMode.Impulse); //needs a bit tinkering 
 					//Debug.Log("Velocity vector: " + rb.velocity);
@@ -151,16 +160,20 @@ public class CameraRay : MonoBehaviour
 					Transform forceGoal = getCorrectLocation(rb);
 					float magneticPower = 0f;
 					
-					if (rb.gameObject.GetComponent<CubiController>().isInMagneticField())
+				/*	if (rb.gameObject.GetComponent<CubiController>().isInMagneticField())
 					{
 						//platform is in range
 
 						magneticPower = 5f;
-					} //MoveTowards also maybe
-					
+					} //MoveTowards also maybe*/
+					if (hitOnTop(hit) && hit_dir.z > 0)
+					{
+						forceForward = 5f;
+					}
 					Vector3 target = forceGoal.position;
 					Vector3 force = (hit_dir) * _sliderController.getSliderStrength().value; //
 					force += Vector3.up * (ForceUp + _sliderController.getForceUp().value + magneticPower);
+					force += Vector3.back * forceForward;
 					//float distance = Vector3.Distance(rb.position.normalized, target.normalized);
 					Debug.DrawRay(rb.position, target, Color.grey, 3f);
 					//rb.AddForceAtPosition(rb.position * distance, rb.position);
@@ -171,6 +184,48 @@ public class CameraRay : MonoBehaviour
 			previousPos = hit.point; //mouse position in 3D
 		}
     }
+
+    private bool hitOnTop(RaycastHit MyRayHit)
+    {
+	    Vector3 MyNormal = MyRayHit.normal;
+	    MyNormal = MyRayHit.transform.TransformDirection( MyNormal );
+	    float diff = MyRayHit.transform.up.y - MyNormal.y;
+	    if (diff <= 0.1)
+	    {
+		    print("HIT ON TOP");
+		    return true;
+	    }
+
+	    return false;
+    }
+    
+    private enum HitDirection { None, Top, Bottom, Forward, Back, Left, Right }
+    private HitDirection ReturnDirection( GameObject Object, GameObject ObjectHit ){
+         
+	    HitDirection hitDirection = HitDirection.None;
+	    RaycastHit MyRayHit;
+	    Vector3 direction = ( Object.transform.position - ObjectHit.transform.position ).normalized;
+	    Ray MyRay = new Ray( ObjectHit.transform.position, direction );
+         
+	    if ( Physics.Raycast( MyRay, out MyRayHit ) ){
+                 
+		    if ( MyRayHit.collider != null ){
+                 
+			    Vector3 MyNormal = MyRayHit.normal;
+			    MyNormal = MyRayHit.transform.TransformDirection( MyNormal );
+                 
+			    if( MyNormal == MyRayHit.transform.up ){ hitDirection = HitDirection.Top; }
+			    if( MyNormal == -MyRayHit.transform.up ){ hitDirection = HitDirection.Bottom; }
+			    if( MyNormal == MyRayHit.transform.forward ){ hitDirection = HitDirection.Forward; }
+			    if( MyNormal == -MyRayHit.transform.forward ){ hitDirection = HitDirection.Back; }
+			    if( MyNormal == MyRayHit.transform.right ){ hitDirection = HitDirection.Right; }
+			    if( MyNormal == -MyRayHit.transform.right ){ hitDirection = HitDirection.Left; }
+		    }    
+	    }
+	    return hitDirection;
+    
+}
+
 
     private bool isMoving(Rigidbody rb)
     {
