@@ -175,7 +175,7 @@ public class CameraRay : MonoBehaviour
 					force += Vector3.up * (ForceUp + _sliderController.getForceUp().value + magneticPower);
 					force += Vector3.back * forceForward;
 					//float distance = Vector3.Distance(rb.position.normalized, target.normalized);
-					Debug.DrawRay(rb.position, target, Color.grey, 3f);
+					Debug.DrawRay(rb.position, force, Color.grey, 3f);
 					//rb.AddForceAtPosition(rb.position * distance, rb.position);
 					rb.AddForce(force, ForceMode.Impulse);
 				}
@@ -269,11 +269,11 @@ public class CameraRay : MonoBehaviour
 		    case "RGBA(0.000, 1.000, 0.000, 1.000)":
 			    Debug.Log("Green: "+ platformGreen.position.ToString());
 			    return platformGreen;
-		    case "RGBA(1.000, 0.920, 0.0160, 1.000),":
+		    case "RGBA(1.000, 0.922, 0.016, 1.000)":
 			    Debug.Log("Yellow: "+ platformYellow.position.ToString());
 			    return platformYellow;
 		    default:
-			    Debug.Log("hmm something went wrong...");
+			    Debug.Log("hmm something went wrong..." + c.ToString());
 			    return platformMagenta;
 	    }
     }
