@@ -130,22 +130,36 @@ public class CameraRay : MonoBehaviour
 		{
 			if (hit.rigidbody != null)
 			{
-				Rigidbody rb = hit.rigidbody; 
+				Rigidbody rb = hit.rigidbody;
 				//norm direction = norm(destination - source)
+				Transform closestPlatform = null;
+				float closestDistance = 1000000f;
+				foreach (GameObject obj in GameObject.FindGameObjectsWithTag("Platform")) {
+					float distance = Vector3.Distance(hit.point, obj.transform.position);
+					if (closestDistance > distance)
+                    {
+						closestPlatform = obj.transform;
+						closestDistance = distance;
+                    }
+                }
 				Vector3 dir = rb.transform.position - hit.point;
-				Vector3 hit_dir = new Vector3(dir.x, 0f, dir.z).normalized;
+				Vector3 toClosest = (hit.point - closestPlatform.position);
+				Vector3 hit_dir = new Vector3(dir.x, 0f, dir.z * 5 + 2.5f * dir.y);
+				hit_dir += toClosest.normalized * -50/ toClosest.magnitude;
+				hit_dir = hit_dir.normalized;
 				float forceForward = 0;
 				
 				//Spheres
-				if (rb.CompareTag("Sphere")) //&& !isMovingSphere(rb) <-- for checking if sphere is moving, does not work as I want to...
+				if (rb.CompareTag("Sphere") && rb.GetComponent<balls>().canJump) //&& !isMovingSphere(rb) <-- for checking if sphere is moving, does not work as I want to...
 				{
+					rb.GetComponent<balls>().canJump = false;
 					rb.GetComponent<GameObject>();
-					if (hitOnTop(hit) && hit_dir.z > 0)
+					/*if (hitOnTop(hit) && hit_dir.z > 0)
 					{
 						//hit_dir.z *= -1f;
 						forceForward = 5f;
 
-					}
+					}*/
 					Vector3 force = hit_dir * _sliderController.getSliderStrength().value;
 					force += Vector3.up * ForceUp;
 					force += Vector3.back * forceForward;
@@ -155,8 +169,9 @@ public class CameraRay : MonoBehaviour
 					//Vector3 middle = new Vector3();
 				}
 				//Cubes
-				else if (rb.CompareTag("Cubi") && !isMoving(rb))
+				else if (rb.CompareTag("Cubi") && rb.GetComponent<CubiController>().canJump)
 				{
+					rb.GetComponent<CubiController>().canJump = false;
 					Transform forceGoal = getCorrectLocation(rb);
 					float magneticPower = 0f;
 					
@@ -166,10 +181,10 @@ public class CameraRay : MonoBehaviour
 
 						magneticPower = 5f;
 					} //MoveTowards also maybe*/
-					if (hitOnTop(hit) && hit_dir.z > 0)
+					/*if (hitOnTop(hit) && hit_dir.z > 0)
 					{
 						forceForward = 5f;
-					}
+					}*/
 					Vector3 target = forceGoal.position;
 					Vector3 force = (hit_dir) * _sliderController.getSliderStrength().value; //
 					force += Vector3.up * (ForceUp + _sliderController.getForceUp().value + magneticPower);

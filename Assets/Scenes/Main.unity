@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.67932403, g: 0.73286986, b: 0.8046716, a: 1}
+  m_IndirectSpecularColor: {r: 0.67935973, g: 0.73288727, b: 0.8046796, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -579,7 +579,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &53339836
 Transform:
   m_ObjectHideFlags: 0
@@ -728,7 +728,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &120958080
 Transform:
   m_ObjectHideFlags: 0
@@ -1038,7 +1038,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &191118605
 Transform:
   m_ObjectHideFlags: 0
@@ -6534,6 +6534,7 @@ MonoBehaviour:
     type: 3}
   middle: {fileID: 381328365}
   audioController: {fileID: 874497624}
+  canJump: 0
 --- !u!54 &391854239
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -7669,6 +7670,7 @@ MonoBehaviour:
     type: 3}
   middle: {fileID: 381328365}
   audioController: {fileID: 874497624}
+  canJump: 0
 --- !u!199 &707344882
 ParticleSystemRenderer:
   serializedVersion: 6
@@ -12915,7 +12917,7 @@ MonoBehaviour:
   navigationSpeed: 5
   shiftMultiplier: 1
   sensitivity: 1
-  ForceUp: 2
+  ForceUp: 10
   platformYellow: {fileID: 2063074630}
   platformRed: {fileID: 769421826}
   platformBlue: {fileID: 34578090}
@@ -13657,6 +13659,7 @@ MonoBehaviour:
     type: 3}
   middle: {fileID: 381328365}
   audioController: {fileID: 874497624}
+  canJump: 0
 --- !u!199 &1022911398
 ParticleSystemRenderer:
   serializedVersion: 6
@@ -18677,6 +18680,7 @@ MonoBehaviour:
     type: 3}
   middle: {fileID: 381328365}
   audioController: {fileID: 874497624}
+  canJump: 0
 --- !u!199 &1079743171
 ParticleSystemRenderer:
   serializedVersion: 6
@@ -23799,7 +23803,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1213551733
 Transform:
   m_ObjectHideFlags: 0
@@ -23942,7 +23946,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1237843800
 Transform:
   m_ObjectHideFlags: 0
@@ -25402,7 +25406,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1729099026
 Transform:
   m_ObjectHideFlags: 0

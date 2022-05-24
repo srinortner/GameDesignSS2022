@@ -11,6 +11,7 @@ public class CubiController : MonoBehaviour
     private bool isGroundFloor;
     private bool isHighestFloor;
     private bool isMagnetic;
+    public bool canJump;
     public float speed;
     private Transform target;
     private Transform cubi;
@@ -31,6 +32,7 @@ public class CubiController : MonoBehaviour
         isMagnetic = false;
         target = null;
         isColliding = false;
+        canJump = true;
     }
 
     // Update is called once per frame
@@ -38,7 +40,7 @@ public class CubiController : MonoBehaviour
     {
         //TODO: alles hier drinnen auskommentieren wenn moveTowards weg soll
       //  print(isMagnetic);
-        if (isMagnetic && !isColliding)
+        /*if (isMagnetic && !isColliding)
         {
             Vector3 platform = new Vector3(target.position.x + target.localScale.x,
                 target.position.y + target.localScale.y, target.position.z + target.localScale.z);
@@ -46,7 +48,7 @@ public class CubiController : MonoBehaviour
             var targetVec= new Vector3(target.position.x,target.position.y + transform.localScale.z, target.position.z);
                var targetPos = Vector3.MoveTowards(transform.position, targetVec, step);
             _rigidbody.MovePosition(targetPos);
-        }
+        }*/
         
 //        transform.position = Vector3.MoveTowards(transform.position, target.position, step);
          //   print(transform.position);
@@ -71,6 +73,7 @@ public class CubiController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        canJump = true;
         if (collision.gameObject.CompareTag("Platform"))
         {
             isColliding = true;
