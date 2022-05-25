@@ -153,7 +153,6 @@ public class CameraRay : MonoBehaviour
 				if (rb.CompareTag("Sphere") && rb.GetComponent<balls>().canJump) //&& !isMovingSphere(rb) <-- for checking if sphere is moving, does not work as I want to...
 				{
 					rb.GetComponent<balls>().canJump = false;
-					rb.GetComponent<GameObject>();
 					/*if (hitOnTop(hit) && hit_dir.z > 0)
 					{
 						//hit_dir.z *= -1f;
@@ -187,7 +186,7 @@ public class CameraRay : MonoBehaviour
 					}*/
 					Vector3 target = forceGoal.position;
 					Vector3 force = (hit_dir) * _sliderController.getSliderStrength().value; //
-					force += Vector3.up * (ForceUp + _sliderController.getForceUp().value + magneticPower);
+					force += Vector3.up * ((ForceUp - 4f) + _sliderController.getForceUp().value + magneticPower);
 					force += Vector3.back * forceForward;
 					//float distance = Vector3.Distance(rb.position.normalized, target.normalized);
 					Debug.DrawRay(rb.position, force, Color.grey, 3f);
