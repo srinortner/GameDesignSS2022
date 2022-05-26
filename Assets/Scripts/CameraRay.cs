@@ -184,8 +184,22 @@ public class CameraRay : MonoBehaviour
 					{
 						forceForward = 5f;
 					}*/
-					Vector3 target = forceGoal.position;
-					Vector3 force = (hit_dir) * _sliderController.getSliderStrength().value; //
+					Transform closestPlatformCube = null;
+					float closestDistanceCube = 1000000f;
+					foreach (GameObject obj in GameObject.FindGameObjectsWithTag("Platform")) {
+						float distance = Vector3.Distance(hit.point, obj.transform.position);
+						if ((closestDistanceCube > distance) && obj.GetComponent<Renderer>().material.color == rb.GetComponent<Renderer>().material.color)
+						{
+							closestPlatformCube = obj.transform;
+							closestDistanceCube = distance;
+						}
+					}
+					Vector3 _dir = rb.transform.position - hit.point;
+					Vector3 _toClosest = (hit.point - closestPlatformCube.position);
+					Vector3 _hit_dir = new Vector3(_dir.x, 0f, _dir.z * 5 + 2.5f * _dir.y);
+					_hit_dir += _toClosest.normalized * -50/ _toClosest.magnitude;
+					_hit_dir = _hit_dir.normalized;
+					Vector3 force = (_hit_dir) * _sliderController.getSliderStrength().value; //
 					force += Vector3.up * ((ForceUp - 4f) + _sliderController.getForceUp().value + magneticPower);
 					force += Vector3.back * forceForward;
 					//float distance = Vector3.Distance(rb.position.normalized, target.normalized);
