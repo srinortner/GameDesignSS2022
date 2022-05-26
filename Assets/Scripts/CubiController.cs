@@ -35,28 +35,6 @@ public class CubiController : MonoBehaviour
         canJump = true;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        //TODO: alles hier drinnen auskommentieren wenn moveTowards weg soll
-      //  print(isMagnetic);
-        /*if (isMagnetic && !isColliding)
-        {
-            Vector3 platform = new Vector3(target.position.x + target.localScale.x,
-                target.position.y + target.localScale.y, target.position.z + target.localScale.z);
-            var step =  speed * Time.deltaTime; // calculate distance to move
-            var targetVec= new Vector3(target.position.x,target.position.y + transform.localScale.z, target.position.z);
-               var targetPos = Vector3.MoveTowards(transform.position, targetVec, step);
-            _rigidbody.MovePosition(targetPos);
-        }*/
-        
-//        transform.position = Vector3.MoveTowards(transform.position, target.position, step);
-         //   print(transform.position);
-         //   print(target.position);
-         //   print(step);
-     //   print(target.position);
-    }
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Magnet"))

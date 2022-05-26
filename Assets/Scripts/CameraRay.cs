@@ -31,7 +31,6 @@ public class CameraRay : MonoBehaviour
 	private float startTime;
 	private GameObject[] spheres;
 	private GameObject text;
-	private List<Color> colorList;
 	private SliderController _sliderController;
 	private bool outOfBounds;
 	private GameObject _audioController;
@@ -50,7 +49,6 @@ public class CameraRay : MonoBehaviour
 		previousPos = new Vector3();
 		spheres = GameObject.FindGameObjectsWithTag("Sphere");
 		text = GameObject.FindGameObjectWithTag("Text");
-		colorList = new List<Color>() {Color.magenta, Color.blue, Color.cyan, Color.black};
 		_sliderController = GameObject.FindObjectOfType<SliderController>();
 		outOfBounds = false;
 		_audioController = GameObject.FindWithTag("AudioManager");
@@ -153,37 +151,16 @@ public class CameraRay : MonoBehaviour
 				if (rb.CompareTag("Sphere") && rb.GetComponent<balls>().canJump) 
 				{
 					rb.GetComponent<balls>().canJump = false;
-					/*if (hitOnTop(hit) && hit_dir.z > 0)
-					{
-						//hit_dir.z *= -1f;
-						forceForward = 5f;
-
-					}*/
 					Vector3 force = hit_dir * _sliderController.getSliderStrength().value;
 					force += Vector3.up * ForceUp;
 					force += Vector3.back * forceForward;
 					Debug.DrawRay(rb.position, force, Color.black, 3f); //activate gizmo in game view to see ray
-					rb.AddForce(force, ForceMode.Impulse); //needs a bit tinkering 
-					//Debug.Log("Velocity vector: " + rb.velocity);
-					//Vector3 middle = new Vector3();
+					rb.AddForce(force, ForceMode.Impulse);
 				}
 				//Cubes
 				else if (rb.CompareTag("Cubi") && rb.GetComponent<CubiController>().canJump)
 				{
 					rb.GetComponent<CubiController>().canJump = false;
-					Transform forceGoal = getCorrectLocation(rb);
-					float magneticPower = 0f;
-					
-				/*	if (rb.gameObject.GetComponent<CubiController>().isInMagneticField())
-					{
-						//platform is in range
-
-						magneticPower = 5f;
-					} //MoveTowards also maybe*/
-					/*if (hitOnTop(hit) && hit_dir.z > 0)
-					{
-						forceForward = 5f;
-					}*/
 					Transform closestPlatformCube = null;
 					float closestDistanceCube = 1000000f;
 					foreach (GameObject obj in GameObject.FindGameObjectsWithTag("Platform")) {
@@ -200,15 +177,12 @@ public class CameraRay : MonoBehaviour
 					_hit_dir += _toClosest.normalized * -50/ _toClosest.magnitude;
 					_hit_dir = _hit_dir.normalized;
 					Vector3 force = (_hit_dir) * _sliderController.getSliderStrength().value; //
-					force += Vector3.up * ((ForceUp - 4f) + _sliderController.getForceUp().value + magneticPower);
+					force += Vector3.up * ((ForceUp - 4f) + _sliderController.getForceUp().value);
 					force += Vector3.back * forceForward;
-					//float distance = Vector3.Distance(rb.position.normalized, target.normalized);
 					Debug.DrawRay(rb.position, force, Color.grey, 3f);
-					//rb.AddForceAtPosition(rb.position * distance, rb.position);
 					rb.AddForce(force, ForceMode.Impulse);
 				}
 			}
-
 			previousPos = hit.point; //mouse position in 3D
 		}
     }
@@ -252,36 +226,7 @@ public class CameraRay : MonoBehaviour
 	    }
 	    return hitDirection;
     
-}
-
-    private Transform getCorrectLocation(Rigidbody rb)
-    {
-	    Color c = rb.gameObject.GetComponent<Renderer>().material.color;
-	    
-	    switch (c.ToString())
-	    {
-		    case "RGBA(1.000, 0.000, 1.000, 1.000)":
-			    Debug.Log("Magenta: "+ platformMagenta.position.ToString());
-			    return platformMagenta;
-		    case "RGBA(1.000, 0.000, 0.000, 1.000)":
-			    Debug.Log("Red: "+ platformRed.position.ToString());
-			    return platformRed;
-		    case "RGBA(0.000, 0.000, 1.000, 1.000)":
-			    Debug.Log("Blue: "+ platformBlue.position.ToString());
-			    return platformBlue;
-		    case "RGBA(0.000, 1.000, 1.000, 1.000)":
-			    Debug.Log("Cyan: "+ platformCyan.position.ToString());
-			    return platformCyan;
-		    case "RGBA(0.000, 1.000, 0.000, 1.000)":
-			    Debug.Log("Green: "+ platformGreen.position.ToString());
-			    return platformGreen;
-		    case "RGBA(1.000, 0.922, 0.016, 1.000)":
-			    Debug.Log("Yellow: "+ platformYellow.position.ToString());
-			    return platformYellow;
-		    default:
-			    Debug.Log("hmm something went wrong..." + c.ToString());
-			    return platformMagenta;
-	    }
-    }
+	}
+    
 
 }
