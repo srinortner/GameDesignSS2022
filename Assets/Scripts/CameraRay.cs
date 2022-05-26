@@ -150,7 +150,7 @@ public class CameraRay : MonoBehaviour
 				float forceForward = 0;
 				
 				//Spheres
-				if (rb.CompareTag("Sphere") && rb.GetComponent<balls>().canJump) //&& !isMovingSphere(rb) <-- for checking if sphere is moving, does not work as I want to...
+				if (rb.CompareTag("Sphere") && rb.GetComponent<balls>().canJump) 
 				{
 					rb.GetComponent<balls>().canJump = false;
 					/*if (hitOnTop(hit) && hit_dir.z > 0)
@@ -239,28 +239,6 @@ public class CameraRay : MonoBehaviour
 	    return hitDirection;
     
 }
-
-
-    private bool isMoving(Rigidbody rb)
-    {
-	    if (rb.velocity.Equals(Vector3.zero))
-	    {
-		    // object is not moving
-		    return false;
-	    }
-	    //object is moving
-	    return true;
-    }
-
-    private bool isMovingSphere(Rigidbody rb)
-    {
-	    //0.3f is middle force
-	    if ((rb.velocity.z <= 0.4f && rb.velocity.z >= -0.4f) || (rb.velocity.x <= 1f && rb.velocity.x >= -1f))
-	    {
-		    return false;
-	    }
-	    return true;
-    }
 
     private Transform getCorrectLocation(Rigidbody rb)
     {
