@@ -143,7 +143,7 @@ public class CameraRay : MonoBehaviour
 				Vector3 dir = rb.transform.position - hit.point;
 				Vector3 toClosest = (hit.point - closestPlatform.position);
 				Vector3 hit_dir = new Vector3(dir.x, 0f, dir.z * 5 + 2.5f * dir.y);
-				hit_dir += toClosest.normalized * -50/ toClosest.magnitude;
+				hit_dir += toClosest.normalized * -10/ toClosest.magnitude; // increase -x value if you want the sphere to have higher magnetic value
 				hit_dir = hit_dir.normalized;
 				float forceForward = 0;
 				
@@ -154,12 +154,13 @@ public class CameraRay : MonoBehaviour
 					Vector3 force = hit_dir * _sliderController.getSliderStrength().value;
 					force += Vector3.up * ForceUp;
 					force += Vector3.back * forceForward;
-					Debug.DrawRay(rb.position, force, Color.black, 3f); //activate gizmo in game view to see ray
+					//Debug.DrawRay(rb.position, force, Color.black, 3f); //activate gizmo in game view to see ray
 					rb.AddForce(force, ForceMode.Impulse);
 				}
 				//Cubes
 				else if (rb.CompareTag("Cubi") && rb.GetComponent<CubiController>().canJump)
 				{
+					var varForceUp = 4f;
 					rb.GetComponent<CubiController>().canJump = false;
 					Transform closestPlatformCube = null;
 					float closestDistanceCube = 1000000f;
@@ -167,6 +168,18 @@ public class CameraRay : MonoBehaviour
 						float distance = Vector3.Distance(hit.point, obj.transform.position);
 						if ((closestDistanceCube > distance) && obj.GetComponent<Renderer>().material.color == rb.GetComponent<Renderer>().material.color)
 						{
+							if (rb.GetComponent<Renderer>().material.color == Color.red)
+							{
+								varForceUp = 7f;
+							}
+							else if (rb.GetComponent<Renderer>().material.color == Color.cyan)
+							{
+								varForceUp = 7f;
+							}
+							else
+							{
+								varForceUp = 4f;
+							}
 							closestPlatformCube = obj.transform;
 							closestDistanceCube = distance;
 						}
@@ -177,9 +190,9 @@ public class CameraRay : MonoBehaviour
 					_hit_dir += _toClosest.normalized * -50/ _toClosest.magnitude;
 					_hit_dir = _hit_dir.normalized;
 					Vector3 force = (_hit_dir) * _sliderController.getSliderStrength().value; //
-					force += Vector3.up * ((ForceUp - 4f) + _sliderController.getForceUp().value);
+					force += Vector3.up * ((ForceUp - varForceUp) + _sliderController.getForceUp().value);
 					force += Vector3.back * forceForward;
-					Debug.DrawRay(rb.position, force, Color.grey, 3f);
+					//Debug.DrawRay(rb.position, force, Color.grey, 3f);
 					rb.AddForce(force, ForceMode.Impulse);
 				}
 			}
