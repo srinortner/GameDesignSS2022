@@ -18,6 +18,7 @@ public class CameraRay : MonoBehaviour
 	private Camera cam;
 	
 	public float ForceUp;
+	public float ForceUpCubes;
 	public Transform platformYellow;
 	public Transform platformRed;
 	public Transform platformBlue;
@@ -143,7 +144,7 @@ public class CameraRay : MonoBehaviour
 				Vector3 dir = rb.transform.position - hit.point;
 				Vector3 toClosest = (hit.point - closestPlatform.position);
 				Vector3 hit_dir = new Vector3(dir.x, 0f, dir.z * 5 + 2.5f * dir.y);
-				hit_dir += toClosest.normalized * -10/ toClosest.magnitude; // increase -x value if you want the sphere to have higher magnetic value
+				hit_dir += toClosest.normalized * -2/ toClosest.magnitude; // increase -x value if you want the sphere to have higher magnetic value
 				hit_dir = hit_dir.normalized;
 				float forceForward = 0;
 				
@@ -153,7 +154,7 @@ public class CameraRay : MonoBehaviour
 					rb.GetComponent<balls>().canJump = false;
 					Vector3 force = hit_dir * _sliderController.getSliderStrength().value;
 					force += Vector3.up * ForceUp;
-					force += Vector3.back * forceForward;
+					//force += Vector3.back * forceForward;
 					//Debug.DrawRay(rb.position, force, Color.black, 3f); //activate gizmo in game view to see ray
 					rb.AddForce(force, ForceMode.Impulse);
 				}
@@ -190,8 +191,8 @@ public class CameraRay : MonoBehaviour
 					_hit_dir += _toClosest.normalized * -50/ _toClosest.magnitude;
 					_hit_dir = _hit_dir.normalized;
 					Vector3 force = (_hit_dir) * _sliderController.getSliderStrength().value; //
-					force += Vector3.up * ((ForceUp - varForceUp) + _sliderController.getForceUp().value);
-					force += Vector3.back * forceForward;
+					force += Vector3.up * ((ForceUpCubes - varForceUp) + _sliderController.getForceUp().value);
+					//force += Vector3.back * forceForward;
 					//Debug.DrawRay(rb.position, force, Color.grey, 3f);
 					rb.AddForce(force, ForceMode.Impulse);
 				}
