@@ -17,6 +17,7 @@ TagManager:
   - Cubi
   - Floor
   - Magnet
+  - Car
   layers:
   - Default
   - TransparentFX

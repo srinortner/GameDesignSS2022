@@ -34,7 +34,7 @@ public class PlatformController : MonoBehaviour
             }
         }
 
-        if (houseCounter == 6)
+        if (houseCounter == 8)
         {
             foreach (var child in children)
             {
@@ -42,6 +42,24 @@ public class PlatformController : MonoBehaviour
                 {
                     print("found Child with tag streetLight");
                     child.GetComponentInParent<MeshRenderer>().enabled = true;
+                }
+                    
+            }
+        }
+        
+        if (houseCounter == 12)
+        {
+            foreach (var child in children)
+            {
+                if (child.CompareTag("Car"))
+                {
+                    print("found Child with tag car");
+                    List<Transform> carparts = GetAllChildren(child.GetComponent<Transform>());
+                    foreach (var part in carparts)
+                    {
+                        part.GetComponentInParent<MeshRenderer>().enabled = true;
+                    }
+                    
                 }
                     
             }
