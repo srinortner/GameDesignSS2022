@@ -47,6 +47,19 @@ public class PlatformController : MonoBehaviour
             }
         }
         
+        if (houseCounter == 10)
+        {
+            foreach (var child in children)
+            {
+                if (child.CompareTag("Tree"))
+                {
+                    print("found Child with tag tree");
+                    child.GetComponentInParent<MeshRenderer>().enabled = true;
+                }
+                    
+            }
+        }
+        
         if (houseCounter == 12)
         {
             foreach (var child in children)
